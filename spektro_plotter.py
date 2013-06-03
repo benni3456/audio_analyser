@@ -2,7 +2,7 @@ from pylab import *
 from calc import *
 from scipy.signal import butter, lfilter
 from sound_device import SAMPLING_RATE as fs
-from plot_terzpegel import PenStyles
+from plot_terzpegel import thirdPenStyles
 #PEP 8
 class SpektroPlotter:
     def __init__(self, PlotSpektro, audiobuffer):

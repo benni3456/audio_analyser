@@ -17,13 +17,12 @@ from audio_buffer import AudioBuffer # audio ring buffer class
 from sound_device import AudioDevice# audio device class
 from log_class import Logger 
 #from sound_settings import Settings_Dialog
-from plot_terzpegel import PenStyles
+
 
 import Terzpegelmesser
 
 from scipy.signal import *
 import matplotlib.pyplot as pp
-
 #import thirds2
 import waveform
 import gain_plotter
@@ -117,9 +116,9 @@ class MainWindow(QMainWindow):
     def update_plot(self):
 
         #=======================================================================
-#        self.channelplotter.plot()
+        self.channelplotter.plot()
         #  
-        #self.gain_plotter.plot()
+        self.gain_plotter.plot()
         #  
         self.spektro_plotter.plot()
         #  
@@ -130,9 +129,9 @@ class MainWindow(QMainWindow):
         #self.specgramplot.plotspecgram()
          
         #=======================================================================
-        # self.fft_plot.plot(samples)
+        #self.fft_plot.plot(samples)
         #=======================================================================
-        
+        time.sleep(0.01)
     # opens stream if there is none, else closes it  
     def stream_run(self):
         

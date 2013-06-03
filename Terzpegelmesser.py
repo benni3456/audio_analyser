@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_4.ui'
+# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_5.ui'
 #
-# Created: Mon Jun 03 15:27:11 2013
+# Created: Mon Jun 03 17:24:32 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,14 +24,15 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.PlotTerzpegel = PenStyles(self.centralwidget)
+        self.PlotTerzpegel = thirdPenStyles(self.centralwidget)
         self.PlotTerzpegel.setMinimumSize(QtCore.QSize(0, 0))
         self.PlotTerzpegel.setObjectName(_fromUtf8("PlotTerzpegel"))
         self.horizontalLayout_2.addWidget(self.PlotTerzpegel)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        self.PlotKanalpegel = MatplotlibWidget(self.centralwidget)
+        self.PlotKanalpegel = Channel_Bar(self.centralwidget)
+        self.PlotKanalpegel.setMinimumSize(QtCore.QSize(0, 0))
         self.PlotKanalpegel.setObjectName(_fromUtf8("PlotKanalpegel"))
         self.horizontalLayout_7.addWidget(self.PlotKanalpegel)
         self.horizontalLayout_2.addLayout(self.horizontalLayout_7)
@@ -179,4 +180,5 @@ class Ui_MainWindow(object):
         self.menuDatei.setTitle(QtGui.QApplication.translate("MainWindow", "Datei", None, QtGui.QApplication.UnicodeUTF8))
 
 from matplotlibwidget import MatplotlibWidget
-from plot_terzpegel import PenStyles
+from plot_terzpegel import thirdPenStyles
+from plot_channellevel import Channel_Bar

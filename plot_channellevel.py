@@ -15,7 +15,7 @@ from pylab import *
 import random
 
 
-class thirdPenStyles(QtGui.QWidget):
+class Channel_Bar(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
@@ -33,11 +33,11 @@ class thirdPenStyles(QtGui.QWidget):
         assert (len(dBValue) == len(freqValue))
         self.dBValue = dBValue
         self.freqValue = freqValue
-        #print dBValue
+
 
     def draw_text(self, painter):
         painter.drawText(QtCore.QRectF(self.width() - self.sidespace*2, 0, 20, 20), QtCore.Qt.AlignCenter,
-                             'fm')
+                             'channel')
         painter.drawText(QtCore.QRectF(-30, -self.height()+self.sidespace+20, 20, 20), QtCore.Qt.AlignCenter,
                              'dB')
         
@@ -60,7 +60,6 @@ class thirdPenStyles(QtGui.QWidget):
         for i in range(0, count_ticks):
             painter.drawText(QtCore.QRectF(-30, y_axis, 20, 20), QtCore.Qt.AlignCenter | QtCore.Qt.TextDontClip, str(self.y_ticks[i]))#y achse beschriftung
             y_axis = y_axis - (self.height() - self.sidespace*2) / (count_ticks-1)
-
 
 
     def draw_ticks(self, balkenbreite, painter):
@@ -92,13 +91,21 @@ class thirdPenStyles(QtGui.QWidget):
         painter.save()
         painter.scale(((self.width()-self.sidespace*2)/(len(self.freqValue))), -((self.height()-self.sidespace*2)/self.y_anzahl))# Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
-        brush = QtGui.QBrush(QtCore.Qt.green)
-        painter.setBrush(brush)
         startpoint = 0
         for a in range(0, len(self.dBValue), 1):
             db = self.dBValue[a]
-            if db<-80:
-                db =-80
+            
+            if db < -80:
+                db = -80
+               
+            if db > -10:
+                brush = QtGui.QBrush(QtCore.Qt.red)
+
+            else:
+                brush = QtGui.QBrush(QtCore.Qt.green)
+
+            painter.setBrush(brush)
+            
             painter.drawRect(QtCore.QRectF(startpoint, 0, balkenbreite, 80+db)) #balken
             startpoint = startpoint + balkenbreite
         painter.restore()
@@ -135,13 +142,16 @@ class thirdPenStyles(QtGui.QWidget):
 
 if __name__== '__main__':
        
-    dBValue = -(abs(randn(29))*10+40)
+    dBValue = -(abs(randn(2))*10 + 0)
     #dBValue = range(1, 30)*random.randint(10, 60)
-    freqValue = range(100, 3000, 100)
-
+    freqValue = range(1, 3)
+    print (freqValue)
+    print (dBValue)
+    
+    
 
     app = QtGui.QApplication(sys.argv)
-    dt = thirdPenStyles()
+    dt = Channel_Bar()
     
     dt.readArray(dBValue, freqValue)
     
