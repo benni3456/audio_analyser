@@ -10,10 +10,12 @@ from calc import *
 from numpy import *
 import scipy
 import scipy.fftpack
+from sound_device import SAMPLING_RATE as fs
 
 class Oszi:
-    def __init__(self, PlotOszi, fs):
+    def __init__(self, PlotOszi, audiobuffer):
         self.PlotOszi = PlotOszi
+        self.audiobuffer = audiobuffer
         # number of periods to be displayed
         self.NumberOfPeriods = 4
         # undersampling factor; default=1
@@ -36,9 +38,9 @@ class Oszi:
             # in case of even slope
             return [zero_crossings[0][0],zero_crossings[0][self.NumberOfPeriods*2]]
 
-    def plot(self,data):
+    def plot(self):
         ''' function to plot the waveform '''
-
+        data = self.audiobuffer.newdata()
         # calls function for indices of starting- and endpoint of self.NumberOfPeriods periods of the input vector
         zero_crossings = self.findperiod(data)
         # plots self.NumberOfPeriods periods of the input vector

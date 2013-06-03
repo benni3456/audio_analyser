@@ -1,13 +1,16 @@
 from pylab import *
 from calc import *
-from scipy.signal import *
+from scipy.signal import butter, lfilter
+from sound_device import SAMPLING_RATE as fs
+from plot_terzpegel import PenStyles
 #PEP 8
 class SpektroPlotter:
-    def __init__(self, PlotSpektro, fs=44100):
+    def __init__(self, PlotSpektro, audiobuffer):
         ''' function that computes and plots (third) octave levels of given input data '''
         self.PlotSpektro = PlotSpektro
+        self.audiobuffer = audiobuffer
         self.fs = fs
-
+        
         # computes frequencies and puts them in arrays
         self.fc = [1000.0 * (2.0 ** (1.0 / 3.0 * kk)) for kk in range(-15,13)]
         self.fu = [freq * (2.0 ** (-1.0 / 6.0)) for freq in self.fc]
@@ -43,7 +46,8 @@ class SpektroPlotter:
         b, a = butter(order, [low, high], btype='bandpass', analog=False)
         return b,a
 
-    def plot(self,data):
+    def plot(self):
+        data = self.audiobuffer.newdata()
         ''' function to obtain and plot the third octave level '''
         self.block = array(data,dtype=float64)
         self.thirdpow = []
@@ -52,9 +56,17 @@ class SpektroPlotter:
         for freq in range(len(self.fc)):
             freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0])) + frequenzbewertung[freq]
             self.thirdpow.append(freqpow)
-
+        #print("fc="+str(self.fc))
+        #print("thirdpow="+str(self.thirdpow))
+        
+        
+        self.PlotSpektro.readArray(self.thirdpow,self.fc)
+        
+        
         # plotting of the third octave levels
-        self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
-        self.PlotSpektro.axes.set_ylim(-115, -20)
-        self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
-        self.PlotSpektro.draw()
+        #=======================================================================
+        # self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
+        # self.PlotSpektro.axes.set_ylim(-115, -20)
+        # self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
+        # self.PlotSpektro.draw()
+        #=======================================================================

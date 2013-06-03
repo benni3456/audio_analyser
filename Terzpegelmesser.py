@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_2.ui'
+# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_4.ui'
 #
-# Created: Mon May 13 17:19:27 2013
+# Created: Mon Jun 03 15:27:11 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,10 +24,12 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.PlotTerzpegel = MatplotlibWidget(self.centralwidget)
+        self.PlotTerzpegel = PenStyles(self.centralwidget)
+        self.PlotTerzpegel.setMinimumSize(QtCore.QSize(0, 0))
         self.PlotTerzpegel.setObjectName(_fromUtf8("PlotTerzpegel"))
         self.horizontalLayout_2.addWidget(self.PlotTerzpegel)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
+        self.horizontalLayout_7.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.PlotKanalpegel = MatplotlibWidget(self.centralwidget)
         self.PlotKanalpegel.setObjectName(_fromUtf8("PlotKanalpegel"))
@@ -36,6 +38,9 @@ class Ui_MainWindow(object):
         self.PlotWellenform = MatplotlibWidget(self.centralwidget)
         self.PlotWellenform.setObjectName(_fromUtf8("PlotWellenform"))
         self.horizontalLayout_2.addWidget(self.PlotWellenform)
+        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_2.setStretch(1, 1)
+        self.horizontalLayout_2.setStretch(2, 1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
@@ -174,3 +179,4 @@ class Ui_MainWindow(object):
         self.menuDatei.setTitle(QtGui.QApplication.translate("MainWindow", "Datei", None, QtGui.QApplication.UnicodeUTF8))
 
 from matplotlibwidget import MatplotlibWidget
+from plot_terzpegel import PenStyles

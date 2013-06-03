@@ -16,7 +16,8 @@ import time
 from audio_buffer import AudioBuffer # audio ring buffer class
 from sound_device import AudioDevice# audio device class
 from log_class import Logger 
-from sound_settings import Settings_Dialog
+#from sound_settings import Settings_Dialog
+from plot_terzpegel import PenStyles
 
 import Terzpegelmesser
 
@@ -56,20 +57,20 @@ class MainWindow(QMainWindow):
         self.audiobuffer = AudioBuffer(self.logger)
 
         # Initialize the audio device
-        self.audiobackend = AudioDevice(self.logger)
+        self.audio_device = AudioDevice(self.logger)
         
-        devices = self.audiobackend.get_readable_devices_list()
+        devices = self.audio_device.get_readable_devices_list()
         for device in devices:
             self.ui.DeviceList.addItem(device)
 
-        channels = self.audiobackend.get_readable_current_channels()
+        channels = self.audio_device.get_readable_current_channels()
         #=======================================================================
         # for channel in channels:
         #     self.settings_dialog.comboBox_firstChannel.addItem(channel)
         #     self.settings_dialog.comboBox_secondChannel.addItem(channel)
         #=======================================================================
 
-        current_device = self.audiobackend.get_readable_current_device()
+        current_device = self.audio_device.get_readable_current_device()
         self.ui.DeviceList.setCurrentIndex(current_device)
                    
         #=======================================================================
@@ -94,10 +95,12 @@ class MainWindow(QMainWindow):
         #=======================================================================
         
         
+        # Plot Connection t
+        
         
         self.gain_plotter = gain_plotter.GainPlotter(self.ui.PlotGainVerlauf, self.audiobuffer)
-        #self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel)        
-        #self.waveform = waveform.Oszi(self.ui.PlotWellenform)
+        self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,self.audiobuffer)        
+        self.waveform = waveform.Oszi(self.ui.PlotWellenform,self.audiobuffer)
         self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,self.audiobuffer)
         
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
@@ -112,26 +115,19 @@ class MainWindow(QMainWindow):
         self.display_timer.timeout.connect(self.update_plot)
         
     def update_plot(self):
-      
-        
-        #=======================================================================
-        # thirdlist = thirds2.third(samples)
-        #=======================================================================
 
-        
         #=======================================================================
-        self.channelplotter.plot()
+#        self.channelplotter.plot()
         #  
-        self.gain_plotter.plot()
+        #self.gain_plotter.plot()
         #  
-        # self.spektro_plotter.plot(samples)
+        self.spektro_plotter.plot()
         #  
-        # self.waveform.plot(samples)
+        #self.waveform.plot()
         #  
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
-        
-        self.specgramplot.plotspecgram()
+        #self.specgramplot.plotspecgram()
          
         #=======================================================================
         # self.fft_plot.plot(samples)
@@ -160,7 +156,7 @@ class MainWindow(QMainWindow):
             print(logger.log)
             
     def update_buffer(self):
-        (chunks, t, newpoints) = self.audiobackend.update(self.audiobuffer.ringbuffer)
+        chunks, t, newpoints = self.audio_device.update(self.audiobuffer.ringbuffer)
         self.audiobuffer.set_newdata(newpoints)
         self.chunk_number += chunks
         self.buffer_timer_time = (95.*self.buffer_timer_time + 5.*t)/100.
@@ -169,7 +165,7 @@ class MainWindow(QMainWindow):
     def input_device_changed(self, index):
         #self.ui.actionStart.setChecked(False)
         
-        success, index = self.audiobackend.select_input_device(index)
+        success, index = self.audio_device.select_input_device(index)
         
         self.ui.DeviceList.setCurrentIndex(index)
         
@@ -182,9 +178,9 @@ class MainWindow(QMainWindow):
         
         # reset the channels
   #=============================================================================
-  #       first_channel = self.audiobackend.get_current_first_channel()
+  #       first_channel = self.audio_device.get_current_first_channel()
   #       self.settings_dialog.comboBox_firstChannel.setCurrentIndex(first_channel)
-  #       second_channel = self.audiobackend.get_current_second_channel()
+  #       second_channel = self.audio_device.get_current_second_channel()
   #       self.settings_dialog.comboBox_secondChannel.setCurrentIndex(second_channel)  
   # 
   #       self.ui.actionStart.setChecked(True)
@@ -198,7 +194,7 @@ class MainWindow(QMainWindow):
         "Audio buffer retrieval: %.02f ms\n"\
         "Global CPU usage: %d %%\n"\
         "Number of overflowed inputs (XRUNs): %d"\
-        % (self.chunk_number, self.buffer_timer_time, self.cpu_percent, self.audiobackend.xruns)
+        % (self.chunk_number, self.buffer_timer_time, self.cpu_percent, self.audio_device.xruns)
         
         self.about_dialog.LabelStats.setText(label)
       
