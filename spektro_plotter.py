@@ -5,7 +5,7 @@ from sound_device import SAMPLING_RATE as fs
 from plot_terzpegel import thirdPenStyles
 #PEP 8
 class SpektroPlotter:
-    def __init__(self, PlotSpektro, audiobuffer):
+    def __init__(self, PlotSpektro, audiobuffer, fs=48000):
         ''' function that computes and plots (third) octave levels of given input data '''
         self.PlotSpektro = PlotSpektro
         self.audiobuffer = audiobuffer
@@ -20,6 +20,16 @@ class SpektroPlotter:
                                     -3.2,-1.9,-0.8,0.0,0.6,1.0,1.2,1.3,1.2,1.0,0.5,-0.1,-1.1,-2.5,-4.3,-6.6]
         self.frequenzbewertung_c = [-3.0,-2.0,-1.3,-0.8,-0.5,-0.3,-0.2,-0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
                                     0.0,-0.1,-0.2,-0.3,-0.5,-0.8,-1.3,-2.0,-3.0,-4.4,-6.2,-8.5]
+
+        self.FB = 'A'
+        self.frequenzbewertung = []
+
+        if self.FB == 'A':
+            self.frequenzbewertung =  self.frequenzbewertung_a
+        elif self.FB == 'C':
+            self.frequenzbewertung =  self.frequenzbewertung_c
+        else:
+            self.frequenzbewertung = [0.0]*len(self.fc)
 
         # computes b,a-coefficients for each frequency band
         self.b = []
@@ -45,7 +55,7 @@ class SpektroPlotter:
 
         # obtainment of the third octave levels
         for freq in range(len(self.fc)):
-            freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0]))
+            freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0])) + self.frequenzbewertung[freq]
             self.thirdpow.append(freqpow)
         #print("fc="+str(self.fc))
         #print("thirdpow="+str(self.thirdpow))
