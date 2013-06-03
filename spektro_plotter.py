@@ -1,7 +1,8 @@
 from pylab import *
 from calc import *
-from scipy.signal import *
+from scipy.signal import butter, lfilter
 from sound_device import SAMPLING_RATE as fs
+from plot_terzpegel import PenStyles
 #PEP 8
 class SpektroPlotter:
     def __init__(self, PlotSpektro, audiobuffer):
@@ -9,7 +10,7 @@ class SpektroPlotter:
         self.PlotSpektro = PlotSpektro
         self.audiobuffer = audiobuffer
         self.fs = fs
-
+        
         # computes frequencies and puts them in arrays
         self.fc = [1000.0 * (2.0 ** (1.0 / 3.0 * kk)) for kk in range(-15,13)]
         self.fu = [freq * (2.0 ** (-1.0 / 6.0)) for freq in self.fc]
@@ -46,10 +47,17 @@ class SpektroPlotter:
         for freq in range(len(self.fc)):
             freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0]))
             self.thirdpow.append(freqpow)
-        print("fc="+str(self.fc))
-        print("thirdpow="+str(self.thirdpow))
+        #print("fc="+str(self.fc))
+        #print("thirdpow="+str(self.thirdpow))
+        
+        
+        self.PlotSpektro.readArray(self.thirdpow,self.fc)
+        
+        
         # plotting of the third octave levels
-        self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
-        self.PlotSpektro.axes.set_ylim(-115, -20)
-        self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
-        self.PlotSpektro.draw()
+        #=======================================================================
+        # self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
+        # self.PlotSpektro.axes.set_ylim(-115, -20)
+        # self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
+        # self.PlotSpektro.draw()
+        #=======================================================================

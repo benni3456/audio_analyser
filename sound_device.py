@@ -12,7 +12,7 @@ from pyaudio import PyAudio, paInt32
 from numpy import floor, int32, fromstring, vstack, iinfo, float64
 
 
-SAMPLING_RATE = 48000
+SAMPLING_RATE = 44100
 FRAMES_PER_BUFFER = 1024 
 
 
@@ -260,7 +260,7 @@ class AudioDevice(QtCore.QObject):
     def update(self, ringbuffer):
         t = QtCore.QTime()
         t.start()
-
+        
         channel = self.get_current_first_channel()
         nchannels = self.get_current_device_nchannels()
         if self.duo_input:
@@ -290,8 +290,8 @@ class AudioDevice(QtCore.QObject):
             
             intdata_all_channels = fromstring(rawdata, int32)
 
-            int16info = iinfo(int32)
-            norm_coeff = max(abs(int16info.min), int16info.max)
+            int32info = iinfo(int32)
+            norm_coeff = max(abs(int32info.min), int32info.max)
             floatdata_all_channels = intdata_all_channels.astype(float64)/float(norm_coeff)
 
 
@@ -307,7 +307,7 @@ class AudioDevice(QtCore.QObject):
             # update the circular buffer
             ringbuffer.push(floatdata)
             chunks += 1
-
+        
         return (chunks, t.elapsed(), chunks*FRAMES_PER_BUFFER)
   
     def set_single_input(self):

@@ -22,7 +22,7 @@ class RingBuffer():
         dim = floatdata.shape[0]
         l = floatdata.shape[1]
 
-        if dim <> self.buffer.shape[0]:
+        if dim != self.buffer.shape[0]:
             # switched from single to dual channels or vice versa  
             self.buffer = zeros((dim, 2*self.buffer_length))
 
