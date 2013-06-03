@@ -11,19 +11,33 @@ import scipy
 import scipy.fftpack
 
 class FFTPlotter:
-    def __init__(self, PlotSpek, fs=44100):
+    def __init__(self, PlotSpek, audiobuffer, fs=48000):
 
         self.PlotSpek = PlotSpek
+        self.audiobuffer = audiobuffer
         self.fs = fs
-        self.blocklength = 2048
-        self.data = zeros(self.blocklength)
+        self.blocklength = 8*1024
+        self.data = zeros(self.blocklength/2)
         self.recursive_weight = 0.1
 
-    def plot(self,data):
-        ''' function to plot the estimated power spectral densitiy '''
+    def nextpow2(self,n):
+        m_f = np.log2(n)
+        m_i = np.floor(m_f)
+        return int(m_i)
 
-        self.data_new = dB(abs(scipy.fft(data[:self.blocklength])))
-        self.data_new = self.data_new[0][0:len(self.data_new[0])/2]
+    def plot(self):
+        ''' function to plot the estimated power spectral densitiy '''
+        data = self.audiobuffer.newdata()
+
+        # limitation of the blocklength to the next lower 2^n in case of drainage of buffer
+        if self.blocklength > len(data[0]):
+            self.blocklength = 2**(self.nextpow2(len(data[0])))
+            self.data = zeros(self.blocklength/2)
+
+        data = data[0][:self.blocklength]
+
+        self.data_new = dB(abs(scipy.fft(data)))
+        self.data_new = self.data_new[:self.blocklength/2]
 
         # recursive power spectral density estimation
         self.data = self.recursive_weight*self.data_new+(1-self.recursive_weight)*self.data

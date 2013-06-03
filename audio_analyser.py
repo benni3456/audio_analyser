@@ -106,7 +106,7 @@ class MainWindow(QMainWindow):
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
         self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
         
-        #self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT)
+        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer, fs=48000)
         
         
     # if the startStop button is clicked, the timer starts and the stream is filled with acoustic data
@@ -117,20 +117,21 @@ class MainWindow(QMainWindow):
     def update_plot(self):
 
         #=======================================================================
-#        self.channelplotter.plot()
+#
+        #self.channelplotter.plot()
         #  
         #self.gain_plotter.plot()
         #  
         self.spektro_plotter.plot()
         #  
-        #self.waveform.plot()
+        self.waveform.plot()
         #  
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
         #self.specgramplot.plotspecgram()
          
         #=======================================================================
-        # self.fft_plot.plot(samples)
+        self.fft_plot.plot()
         #=======================================================================
         
     # opens stream if there is none, else closes it  
