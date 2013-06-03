@@ -101,7 +101,7 @@ class MainWindow(QMainWindow):
         self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,self.audiobuffer)
         
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
-        #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
+        self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
         
         #self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT)
         
@@ -131,7 +131,7 @@ class MainWindow(QMainWindow):
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
         
-        #self.specgramplot.update()
+        self.specgramplot.plotspecgram()
          
         #=======================================================================
         # self.fft_plot.plot(samples)
