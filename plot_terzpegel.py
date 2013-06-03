@@ -95,8 +95,8 @@ class PenStyles(QtGui.QWidget):
         startpoint = 0
         for a in range(0, len(self.dBValue), 1):
             db = self.dBValue[a]
-            if dB<-80:
-                dB =-80
+            if db<-80:
+                db =-80
             painter.drawRect(QtCore.QRectF(startpoint, 0, balkenbreite, 80+db)) #balken
             startpoint = startpoint + balkenbreite
         painter.restore()
