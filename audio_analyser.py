@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
         self.gain_plotter = gain_plotter.GainPlotter(self.ui.PlotGainVerlauf, self.audiobuffer)
         #self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel)        
         #self.waveform = waveform.Oszi(self.ui.PlotWellenform)
-        #self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel)
+        self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,self.audiobuffer)
         
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
@@ -112,9 +112,7 @@ class MainWindow(QMainWindow):
         self.display_timer.timeout.connect(self.update_plot)
         
     def update_plot(self):
-        #samples = easy_read(stream, int(self.Audio.fs/10), self.Audio.channels)
-         
-        #samples = self.audiobuffer.newdata()        
+      
         
         #=======================================================================
         # thirdlist = thirds2.third(samples)
@@ -122,7 +120,7 @@ class MainWindow(QMainWindow):
 
         
         #=======================================================================
-        # self.channelplotter.plot(samples )
+        self.channelplotter.plot()
         #  
         self.gain_plotter.plot()
         #  

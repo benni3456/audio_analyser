@@ -10,11 +10,15 @@ import numpy as np
 
 
 class ChannelPlotter:
-    def __init__(self, PlotChannel):
+    def __init__(self, PlotChannel,audiobuffer):
         self.PlotChannel = PlotChannel
+        self.audiobuffer = audiobuffer
     
-    def plot(self,data,nchannel):
+    def plot(self):
         ''' function for Plotting each channel gain as a bar plot'''
+        
+        data = self.audiobuffer.newdata()
+        nchannel,length = data.shape
         
         width = 0.5 
         channel_dB = np.zeros((nchannel),float)
@@ -24,8 +28,7 @@ class ChannelPlotter:
                   
         self.PlotChannel.axes.bar(index, channel_dB+100, width, bottom=-100)
         self.PlotChannel.axes.set_ylim(-100,0)
-
-
+        
         self.PlotChannel.axes.set_xlabel('Channels')
         
         #=======================================================================
