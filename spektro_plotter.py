@@ -1,11 +1,13 @@
 from pylab import *
 from calc import *
 from scipy.signal import *
+from sound_device import SAMPLING_RATE as fs
 #PEP 8
 class SpektroPlotter:
-    def __init__(self, PlotSpektro, fs=44100):
+    def __init__(self, PlotSpektro, audiobuffer):
         ''' function that computes and plots (third) octave levels of given input data '''
         self.PlotSpektro = PlotSpektro
+        self.audiobuffer = audiobuffer
         self.fs = fs
 
         # computes frequencies and puts them in arrays
@@ -34,7 +36,8 @@ class SpektroPlotter:
         b, a = butter(order, [low, high], btype='bandpass', analog=False)
         return b,a
 
-    def plot(self,data):
+    def plot(self):
+        data = self.audiobuffer.newdata()
         ''' function to obtain and plot the third octave level '''
         self.block = array(data,dtype=float64)
         self.thirdpow = []
@@ -43,7 +46,8 @@ class SpektroPlotter:
         for freq in range(len(self.fc)):
             freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0]))
             self.thirdpow.append(freqpow)
-
+        print("fc="+str(self.fc))
+        print("thirdpow="+str(self.thirdpow))
         # plotting of the third octave levels
         self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
         self.PlotSpektro.axes.set_ylim(-115, -20)

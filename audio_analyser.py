@@ -94,10 +94,12 @@ class MainWindow(QMainWindow):
         #=======================================================================
         
         
+        # Plot Connection t
+        
         
         self.gain_plotter = gain_plotter.GainPlotter(self.ui.PlotGainVerlauf, self.audiobuffer)
-        #self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel)        
-        #self.waveform = waveform.Oszi(self.ui.PlotWellenform)
+        self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,self.audiobuffer)        
+        self.waveform = waveform.Oszi(self.ui.PlotWellenform,self.audiobuffer)
         self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,self.audiobuffer)
         
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
@@ -114,24 +116,21 @@ class MainWindow(QMainWindow):
     def update_plot(self):
       
         
-        #=======================================================================
-        # thirdlist = thirds2.third(samples)
-        #=======================================================================
 
         
         #=======================================================================
-        self.channelplotter.plot()
+#        self.channelplotter.plot()
         #  
-        self.gain_plotter.plot()
+        #self.gain_plotter.plot()
         #  
-        # self.spektro_plotter.plot(samples)
+        self.spektro_plotter.plot()
         #  
-        # self.waveform.plot(samples)
+        self.waveform.plot()
         #  
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
         
-        self.specgramplot.plotspecgram()
+        #self.specgramplot.plotspecgram()
          
         #=======================================================================
         # self.fft_plot.plot(samples)
