@@ -31,10 +31,10 @@ class Oszi:
         # always returns the ascending slope of the period starting with the third period
         if data[zero_crossings[0][0]] > data[zero_crossings[0][1]]:
             # in case of odd slope
-            return [zero_crossings[0][5],zero_crossings[0][5+self.NumberOfPeriods*2]]
+            return [zero_crossings[0][1],zero_crossings[0][1+self.NumberOfPeriods*2]]
         else:
             # in case of even slope
-            return [zero_crossings[0][4],zero_crossings[0][4+self.NumberOfPeriods*2]]
+            return [zero_crossings[0][0],zero_crossings[0][self.NumberOfPeriods*2]]
 
     def plot(self,data):
         ''' function to plot the waveform '''
