@@ -9,10 +9,10 @@ It is usefull to pick the right sound device and manage the audio input.
 
 from PyQt4 import QtCore
 from pyaudio import PyAudio, paInt32
-from numpy import floor, int32, fromstring, vstack, iinfo, float64
+from numpy import floor, int32, fromstring, vstack, iinfo, float64, random
 
 
-SAMPLING_RATE = 44100
+SAMPLING_RATE = 44800
 FRAMES_PER_BUFFER = 1024 
 
 
@@ -255,7 +255,7 @@ class AudioDevice(QtCore.QObject):
             self.logger.push("Device claims %d ms latency" %(lat_ms))
             return True
 
-      # try to update the audio buffer
+    # try to update the audio buffer
     # return the number of chunks retrieved, and the time elapsed
     def update(self, ringbuffer):
         t = QtCore.QTime()

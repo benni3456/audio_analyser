@@ -9,9 +9,10 @@ from calc import *
 from numpy import *
 import scipy
 import scipy.fftpack
+from sound_device import SAMPLING_RATE as fs
 
 class FFTPlotter:
-    def __init__(self, PlotSpek, audiobuffer, fs=48000):
+    def __init__(self, PlotSpek, audiobuffer):
 
         self.PlotSpek = PlotSpek
         self.audiobuffer = audiobuffer
