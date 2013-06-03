@@ -1,21 +1,51 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 29 15:40:50 2013
-
-@author: be2257
-"""
 from pylab import *
 from calc import *
-
+from scipy.signal import *
+#PEP 8
 class SpektroPlotter:
-    def __init__(self, PlotSpektro, fs):
-        self.wholestream = zeros(1)
+    def __init__(self, PlotSpektro, fs=44100):
+        ''' function that computes and plots (third) octave levels of given input data '''
         self.PlotSpektro = PlotSpektro
+        self.fs = fs
+
+        # computes frequencies and puts them in arrays
+        self.fc = [1000.0 * (2.0 ** (1.0 / 3.0 * kk)) for kk in range(-15,13)]
+        self.fu = [freq * (2.0 ** (-1.0 / 6.0)) for freq in self.fc]
+        self.fo = [freq * (2.0 ** (1.0 / 6.0)) for freq in self.fc]
+
+        self.frequenzbewertung_a = [-39.4,-34.6,-30.2,-26.2,-22.5,-19.1,-16.1,-13.4,-10.9,-8.6,-6.6,-4.8,
+                                    -3.2,-1.9,-0.8,0.0,0.6,1.0,1.2,1.3,1.2,1.0,0.5,-0.1,-1.1,-2.5,-4.3,-6.6]
+        self.frequenzbewertung_c = [-3.0,-2.0,-1.3,-0.8,-0.5,-0.3,-0.2,-0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+                                    0.0,-0.1,-0.2,-0.3,-0.5,-0.8,-1.3,-2.0,-3.0,-4.4,-6.2,-8.5]
+
+        # computes b,a-coefficients for each frequency band
+        self.b = []
+        self.a = []
+        for freq in range(len(self.fc)):
+            b,a = self.butterbandpass(self.fo[freq],self.fu[freq],self.fs,2)
+            self.b.append(b)
+            self.a.append(a)
+
+    def butterbandpass(self,fo,fu,fs,order=2):
+        ''' function that computes a,b coefficients of SOS butterworth bandpass '''
+        nyq = 0.5 * self.fs
+        low = fu / nyq
+        high = fo / nyq
+        b, a = butter(order, [low, high], btype='bandpass', analog=False)
+        return b,a
+
     def plot(self,data):
-        ''' function to plot the level over time '''
-        r_m_s = dB(rms(data))
-    # recalls function gain_meter, so therefore computes the level in dB FS
-        self.wholestream = concatenate([self.wholestream,[r_m_s]])
-        self.PlotSpektro.axes.plot(self.wholestream[-100:])
-        self.PlotSpektro.axes.set_ylim(-100,0)
+        ''' function to obtain and plot the third octave level '''
+        self.block = array(data,dtype=float64)
+        self.thirdpow = []
+
+        # obtainment of the third octave levels
+        for freq in range(len(self.fc)):
+            freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0]))
+            self.thirdpow.append(freqpow)
+
+        # plotting of the third octave levels
+        self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
+        self.PlotSpektro.axes.set_ylim(-115, -20)
+        self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
         self.PlotSpektro.draw()
