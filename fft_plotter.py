@@ -15,22 +15,20 @@ class FFTPlotter:
 
         self.PlotSpek = PlotSpek
         self.fs = fs
-        self.data = zeros(2205)  # von 1102 auf 2205 geändert !!! 
+        self.blocklength = 2048
+        self.data = zeros(self.blocklength)
+        self.recursive_weight = 0.1
 
     def plot(self,data):
-        ''' function to plot the level over time '''
+        ''' function to plot the estimated power spectral densitiy '''
 
-
-        self.data_new = dB(abs(scipy.fft(data)))
+        self.data_new = dB(abs(scipy.fft(data[:self.blocklength])))
         self.data_new = self.data_new[0][0:len(self.data_new[0])/2]
-        self.data = 0.1*self.data_new+0.9*self.data
-        
-        #=======================================================================
-        # self.PlotSpek.axes.semilogx(range(0,self.fs/4,10)[0:-1],self.data)  ' range() ist hier der falsche Befehl, lieber Linspace  verwenden
-        #=======================================================================
+
+        # recursive power spectral density estimation
+        self.data = self.recursive_weight*self.data_new+(1-self.recursive_weight)*self.data
         
         self.PlotSpek.axes.semilogx(linspace(0,self.fs/4,len(self.data)),self.data) 
         self.PlotSpek.axes.set_xlim(0,self.fs/2)
         self.PlotSpek.axes.set_ylim(-100,50)
-
         self.PlotSpek.draw()

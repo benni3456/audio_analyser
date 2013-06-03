@@ -18,6 +18,15 @@ class SpektroPlotter:
         self.frequenzbewertung_c = [-3.0,-2.0,-1.3,-0.8,-0.5,-0.3,-0.2,-0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
                                     0.0,-0.1,-0.2,-0.3,-0.5,-0.8,-1.3,-2.0,-3.0,-4.4,-6.2,-8.5]
 
+        self.FB = 'A'
+
+        if self.FB == 'A':
+            frequenzbewertung =  self.frequenzbewertung_a
+        elif self.FB == 'C':
+            frequenzbewertung =  self.frequenzbewertung_c
+        else:
+            frequenzbewertung = [0.0]*len(self.fc)
+
         # computes b,a-coefficients for each frequency band
         self.b = []
         self.a = []
@@ -41,7 +50,7 @@ class SpektroPlotter:
 
         # obtainment of the third octave levels
         for freq in range(len(self.fc)):
-            freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0]))
+            freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0])) + frequenzbewertung[freq]
             self.thirdpow.append(freqpow)
 
         # plotting of the third octave levels
