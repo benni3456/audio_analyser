@@ -116,29 +116,28 @@ class MainWindow(QMainWindow):
     def update_plot(self):
 
         #=======================================================================
-<<<<<<< HEAD
+
         self.channelplotter.plot()
-=======
+
 #
-        #self.channelplotter.plot()
->>>>>>> 45530cb65921e047ea5baba6028688dbf11edb5b
+        
         #  
         self.gain_plotter.plot()
         #  
         self.spektro_plotter.plot()
         #  
-        self.waveform.plot()
+        #self.waveform.plot()
         #  
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
         #self.specgramplot.plotspecgram()
          
         #=======================================================================
-<<<<<<< HEAD
-        #self.fft_plot.plot(samples)
-=======
-        self.fft_plot.plot()
->>>>>>> 45530cb65921e047ea5baba6028688dbf11edb5b
+
+        
+
+        #self.fft_plot.plot()
+
         #=======================================================================
         time.sleep(0.01)
     # opens stream if there is none, else closes it  
