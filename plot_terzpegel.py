@@ -16,6 +16,8 @@ import random
 
 
 class thirdPenStyles(QtGui.QWidget):
+    '''plot thirds in window
+    '''
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
@@ -29,13 +31,16 @@ class thirdPenStyles(QtGui.QWidget):
         self.dBValue = [1]
     # read input data arrays 
     def readArray(self, dBValue, freqValue):
-
+        '''reads data to draw from input device
+        '''
         assert (len(dBValue) == len(freqValue))
         self.dBValue = dBValue
         self.freqValue = freqValue
         #print dBValue
 
     def draw_text(self, painter):
+        '''draws the text of the axis
+        '''
         painter.drawText(QtCore.QRectF(self.width() - self.sidespace*2, 0, 20, 20), QtCore.Qt.AlignCenter,
                              'fm')
         painter.drawText(QtCore.QRectF(-30, -self.height()+self.sidespace+20, 20, 20), QtCore.Qt.AlignCenter,
@@ -64,9 +69,11 @@ class thirdPenStyles(QtGui.QWidget):
 
 
     def draw_ticks(self, balkenbreite, painter):
-        
+        '''
+        draws the ticks of the axis
+        '''
         painter.save()
-        painter.scale(((self.width()-self.sidespace*2)/(len(self.freqValue))), 1)# Skalieren auf Anzahl der Werte
+        painter.scale(((self.width()-self.sidespace*2)/(len(self.freqValue))), 1)  # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
 
         startpoint = 0
