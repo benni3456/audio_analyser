@@ -52,7 +52,7 @@ class Channel_Bar(QtGui.QWidget):
         
         for i in range(0, len(self.freqValue), lesstext):
             painter.drawText(QtCore.QRectF(startpoint-textspace/2, 0, textspace, 20), QtCore.Qt.AlignCenter,
-                             str(self.freqValue[i]))#x-Achse Beschriftung
+                             str(int(self.freqValue[i])))#x-Achse Beschriftung
             startpoint = startpoint + textspace
             
         count_ticks = 5
