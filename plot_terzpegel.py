@@ -96,6 +96,9 @@ class thirdPenStyles(QtGui.QWidget):
         painter.restore()
 
     def draw_data(self, balkenbreite, painter):
+        '''
+        draws data into the plot axis
+        '''
         painter.save()
         painter.scale(((self.width()-self.sidespace*2)/(len(self.freqValue))), -((self.height()-self.sidespace*2)/self.y_anzahl))# Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
