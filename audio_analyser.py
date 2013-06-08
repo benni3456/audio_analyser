@@ -34,6 +34,7 @@ import sound_device
 import fft_plotter
 
 
+
 SMOOTH_DISPLAY_TIMER_PERIOD_MS = 25
     
     
@@ -57,6 +58,12 @@ class MainWindow(QMainWindow):
 
         # Initialize the audio device
         self.audio_device = AudioDevice(self.logger)
+
+        # Initialize the blocklength
+        self.blocklength = 2048
+
+        # Initialize the frequency weighting flag
+        self.weight = 0
         
         devices = self.audio_device.get_readable_devices_list()
         for device in devices:
@@ -88,7 +95,9 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.DeviceList, SIGNAL('currentIndexChanged(int)'), self.input_device_changed)
         #self.connect(self.settings_dialog.comboBox_firstChannel, SIGNAL('currentIndexChanged(int)'), self.first_channel_changed)
         #self.connect(self.settings_dialog.comboBox_secondChannel, SIGNAL('currentIndexChanged(int)'), self.second_channel_changed)
-        
+
+        self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'), self.update_blocklength)
+        self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'), self.update_weight)
         #=======================================================================
         # self.ui.DeviceList.setModel(sound_device.AudioDevice())        
         #=======================================================================
@@ -105,7 +114,7 @@ class MainWindow(QMainWindow):
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
         self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
         
-        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer)
+        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer,self.blocklength)
         
         
     # if the startStop button is clicked, the timer starts and the stream is filled with acoustic data
@@ -120,7 +129,7 @@ class MainWindow(QMainWindow):
         #  
         #self.gain_plotter.plot()
         #  
-        self.spektro_plotter.plot()
+        self.spektro_plotter.plot(self.weight)
         #  
         #self.waveform.plot()
         #  
@@ -129,7 +138,7 @@ class MainWindow(QMainWindow):
         #self.specgramplot.plotspecgram()
          
         #=======================================================================
-        self.fft_plot.plot()
+        self.fft_plot.plot(self.blocklength)
         #=======================================================================
         time.sleep(0.01)
     # opens stream if there is none, else closes it  
@@ -159,7 +168,20 @@ class MainWindow(QMainWindow):
         self.audiobuffer.set_newdata(newpoints)
         self.chunk_number += chunks
         self.buffer_timer_time = (95.*self.buffer_timer_time + 5.*t)/100.
-        
+
+
+    def update_blocklength(self,newblocklength):
+        self.blocklength = 32*(2**newblocklength)
+        print 'Blocksize changed to', self.blocklength
+
+    def update_weight(self,weight):
+        self.weight = weight
+        if self.weight == 0:
+            print 'Using Z Curve (unweighted)'
+        elif self.weight == 1:
+            print 'Using A Curve'
+        elif self.weight == 2:
+            print 'Using C Curve'
 
     def input_device_changed(self, index):
         #self.ui.actionStart.setChecked(False)
