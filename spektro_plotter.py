@@ -17,11 +17,6 @@ class SpektroPlotter:
         self.fu = [freq * (2.0 ** (-1.0 / 6.0)) for freq in self.fc]
         self.fo = [freq * (2.0 ** (1.0 / 6.0)) for freq in self.fc]
 
-        self.frequenzbewertung_a = [-39.4,-34.6,-30.2,-26.2,-22.5,-19.1,-16.1,-13.4,-10.9,-8.6,-6.6,-4.8,
-                                    -3.2,-1.9,-0.8,0.0,0.6,1.0,1.2,1.3,1.2,1.0,0.5,-0.1,-1.1,-2.5,-4.3,-6.6]
-        self.frequenzbewertung_c = [-3.0,-2.0,-1.3,-0.8,-0.5,-0.3,-0.2,-0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-                                    0.0,-0.1,-0.2,-0.3,-0.5,-0.8,-1.3,-2.0,-3.0,-4.4,-6.2,-8.5]
-
         # computes b,a-coefficients for each frequency band
         self.b = []
         self.a = []
@@ -29,6 +24,11 @@ class SpektroPlotter:
             b,a = self.butterbandpass(self.fo[freq],self.fu[freq],self.fs,2)
             self.b.append(b)
             self.a.append(a)
+
+        self.frequenzbewertung_a = [-39.4,-34.6,-30.2,-26.2,-22.5,-19.1,-16.1,-13.4,-10.9,-8.6,-6.6,-4.8,
+                                    -3.2,-1.9,-0.8,0.0,0.6,1.0,1.2,1.3,1.2,1.0,0.5,-0.1,-1.1,-2.5,-4.3,-6.6]
+        self.frequenzbewertung_c = [-3.0,-2.0,-1.3,-0.8,-0.5,-0.3,-0.2,-0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+                                    0.0,-0.1,-0.2,-0.3,-0.5,-0.8,-1.3,-2.0,-3.0,-4.4,-6.2,-8.5]
 
     def butterbandpass(self,fo,fu,fs,order=2):
         ''' function that computes a,b coefficients of SOS butterworth bandpass '''
@@ -57,13 +57,9 @@ class SpektroPlotter:
         for freq in range(len(self.fc)):
             freqpow = dB(rms(lfilter(self.b[freq], self.a[freq], self.block[:])[0])) + self.frequenzbewertung[freq]
             self.thirdpow.append(freqpow)
-        #print("fc="+str(self.fc))
-        #print("thirdpow="+str(self.thirdpow))
-        
-        
+
         self.PlotSpektro.readArray(self.thirdpow,self.fc)
-        
-        
+
         # plotting of the third octave levels
         #=======================================================================
         # self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)

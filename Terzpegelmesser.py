@@ -83,7 +83,7 @@ class Ui_MainWindow(object):
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
-        self.BoxFFT.addItem(_fromUtf8(""))
+        #self.BoxFFT.addItem(_fromUtf8(""))
         self.verticalLayout_4.addWidget(self.BoxFFT)
         self.labelMittel = QtGui.QLabel(self.tab_4)
         self.labelMittel.setObjectName(_fromUtf8("labelMittel"))
