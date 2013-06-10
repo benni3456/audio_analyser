@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Terzpegelmesser_Version1_6.ui'
 #
-# Created: Mon Jun 10 17:13:20 2013
+# Created: Mon Jun 10 20:19:54 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -109,13 +109,20 @@ class Ui_MainWindow(object):
         self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
         self.verticalLayout_4.addWidget(self.BoxBew)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        self.verticalLayout_4.addItem(spacerItem)
+        self.push_plus = QtGui.QPushButton(self.tab_4)
+        self.push_plus.setMaximumSize(QtCore.QSize(25, 28))
+        self.push_plus.setObjectName(_fromUtf8("push_plus"))
+        self.verticalLayout_4.addWidget(self.push_plus)
+        self.push_minus = QtGui.QPushButton(self.tab_4)
+        self.push_minus.setMaximumSize(QtCore.QSize(25, 28))
+        self.push_minus.setObjectName(_fromUtf8("push_minus"))
+        self.verticalLayout_4.addWidget(self.push_minus)
         self.RadioLin = QtGui.QRadioButton(self.tab_4)
-        self.RadioLin.setChecked(True)
+        self.RadioLin.setChecked(False)
         self.RadioLin.setObjectName(_fromUtf8("RadioLin"))
         self.verticalLayout_4.addWidget(self.RadioLin)
         self.RadioLog = QtGui.QRadioButton(self.tab_4)
+        self.RadioLog.setChecked(True)
         self.RadioLog.setObjectName(_fromUtf8("RadioLog"))
         self.verticalLayout_4.addWidget(self.RadioLog)
         self.horizontalLayout_6.addLayout(self.verticalLayout_4)
@@ -170,7 +177,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -193,6 +200,8 @@ class Ui_MainWindow(object):
         self.BoxBew.setItemText(1, QtGui.QApplication.translate("MainWindow", "A", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "B", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(3, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
+        self.push_plus.setText(QtGui.QApplication.translate("MainWindow", "+", None, QtGui.QApplication.UnicodeUTF8))
+        self.push_minus.setText(QtGui.QApplication.translate("MainWindow", "-", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLin.setText(QtGui.QApplication.translate("MainWindow", "linear", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLog.setText(QtGui.QApplication.translate("MainWindow", "log", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "FFT", None, QtGui.QApplication.UnicodeUTF8))
