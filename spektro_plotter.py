@@ -71,10 +71,4 @@ class SpektroPlotter:
 
         self.PlotSpektro.readArray(self.thirdpow,self.fc)
 
-        # plotting of the third octave levels
-        #=======================================================================
-        # self.PlotSpektro.axes.semilogx(self.fc, self.thirdpow)
-        # self.PlotSpektro.axes.set_ylim(-115, -20)
-        # self.PlotSpektro.axes.set_xlim(self.fu[0], self.fo[-1])
-        # self.PlotSpektro.draw()
-        #=======================================================================
+        

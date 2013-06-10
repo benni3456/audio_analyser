@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>924</width>
-    <height>753</height>
+    <width>1066</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1,2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,1,3">
       <item>
        <widget class="thirdPenStyles" name="PlotTerzpegel" native="true">
         <property name="sizePolicy">
@@ -53,7 +53,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <item>
-         <widget class="PlotWaveform" name="PlotWellenform" native="true"/>
+         <widget class="PlotWaveform" name="PlotWellenform" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>200</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -64,7 +71,7 @@
       <item alignment="Qt::AlignVCenter">
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab_3">
          <attribute name="title">
@@ -180,11 +187,6 @@
                 <item>
                  <property name="text">
                   <string>A</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>B</string>
                  </property>
                 </item>
                 <item>
@@ -318,7 +320,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>924</width>
+     <width>1066</width>
      <height>26</height>
     </rect>
    </property>

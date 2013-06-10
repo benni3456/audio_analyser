@@ -137,11 +137,9 @@ class MainWindow(QMainWindow):
         
     def update_plot(self):
 
-        isVis_Spektrogram=self.ui.PlotSpektrogramm.isVisible()
+        
         isvis_FFT = self.ui.PlotFFT.isVisible()
-        
-        
-        
+   
         self.channelplotter.plot()
         self.gain_plotter.plot()  
         self.spektro_plotter.plot(self.weight)
@@ -186,24 +184,29 @@ class MainWindow(QMainWindow):
 
     def update_blocklength(self,newblocklength):
         self.blocklength = 32*(2**newblocklength)
-        print 'Blocksize changed to', self.blocklength
+        self.logger.push("Blocksize changed to "+str(self.blocklength))
+        print(logger.log)
 
     def update_weight(self,weight):
         self.weight = weight
         if self.weight == 0:
-            print 'Using Z Curve (unweighted)'
+            self.logger.push("Using Z Curve (unweighted)")
+            print(logger.log)
         elif self.weight == 1:
-            print 'Using A Curve'
+            self.logger.push("Using A Curve")
+            print(logger.log)
         elif self.weight == 2:
-            print 'Using C Curve'
+            self.logger.push("Using C Curve")
+            print(logger.log)
 
     def update_plotflag_lin(self):
         self.plotflag = 0
-        print 'Linear frequency axis selected'
+        self.logger.push("Linear frequency axis selected")
+        print(logger.log)
 
     def update_plotflag_log(self):
         self.plotflag = 1
-        print 'Logarithmic frequency axis selected'
+        print(logger.log)
 
 
     def input_device_changed(self, index):

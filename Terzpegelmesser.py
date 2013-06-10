@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Terzpegelmesser_Version1_6.ui'
 #
-# Created: Mon Jun 10 20:19:54 2013
+# Created: Mon Jun 10 20:49:26 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(924, 753)
+        MainWindow.resize(1066, 702)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
@@ -44,12 +44,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11 = QtGui.QHBoxLayout()
         self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
         self.PlotWellenform = PlotWaveform(self.centralwidget)
+        self.PlotWellenform.setMinimumSize(QtCore.QSize(200, 200))
         self.PlotWellenform.setObjectName(_fromUtf8("PlotWellenform"))
         self.horizontalLayout_11.addWidget(self.PlotWellenform)
         self.horizontalLayout_2.addLayout(self.horizontalLayout_11)
-        self.horizontalLayout_2.setStretch(0, 2)
+        self.horizontalLayout_2.setStretch(0, 3)
         self.horizontalLayout_2.setStretch(1, 1)
-        self.horizontalLayout_2.setStretch(2, 2)
+        self.horizontalLayout_2.setStretch(2, 3)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
@@ -104,7 +105,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.labelBew)
         self.BoxBew = QtGui.QComboBox(self.tab_4)
         self.BoxBew.setObjectName(_fromUtf8("BoxBew"))
-        self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 924, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1066, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuDatei = QtGui.QMenu(self.menubar)
         self.menuDatei.setObjectName(_fromUtf8("menuDatei"))
@@ -177,7 +177,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -198,8 +198,7 @@ class Ui_MainWindow(object):
         self.labelBew.setText(QtGui.QApplication.translate("MainWindow", "Bewertung", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(0, QtGui.QApplication.translate("MainWindow", "keine", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(1, QtGui.QApplication.translate("MainWindow", "A", None, QtGui.QApplication.UnicodeUTF8))
-        self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "B", None, QtGui.QApplication.UnicodeUTF8))
-        self.BoxBew.setItemText(3, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
+        self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
         self.push_plus.setText(QtGui.QApplication.translate("MainWindow", "+", None, QtGui.QApplication.UnicodeUTF8))
         self.push_minus.setText(QtGui.QApplication.translate("MainWindow", "-", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLin.setText(QtGui.QApplication.translate("MainWindow", "linear", None, QtGui.QApplication.UnicodeUTF8))
