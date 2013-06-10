@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_5.ui'
+# Form implementation generated from reading ui file 'Terzpegelmesser_Version1_6.ui'
 #
-# Created: Mon Jun 03 17:24:32 2013
+# Created: Mon Jun 10 17:13:20 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(881, 710)
+        MainWindow.resize(924, 753)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
@@ -25,23 +25,31 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.PlotTerzpegel = thirdPenStyles(self.centralwidget)
-        self.PlotTerzpegel.setMinimumSize(QtCore.QSize(0, 0))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.PlotTerzpegel.sizePolicy().hasHeightForWidth())
+        self.PlotTerzpegel.setSizePolicy(sizePolicy)
+        self.PlotTerzpegel.setMinimumSize(QtCore.QSize(200, 200))
         self.PlotTerzpegel.setObjectName(_fromUtf8("PlotTerzpegel"))
         self.horizontalLayout_2.addWidget(self.PlotTerzpegel)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.PlotKanalpegel = Channel_Bar(self.centralwidget)
-        self.PlotKanalpegel.setMinimumSize(QtCore.QSize(0, 0))
+        self.PlotKanalpegel.setMaximumSize(QtCore.QSize(150, 16777215))
         self.PlotKanalpegel.setObjectName(_fromUtf8("PlotKanalpegel"))
         self.horizontalLayout_7.addWidget(self.PlotKanalpegel)
         self.horizontalLayout_2.addLayout(self.horizontalLayout_7)
-        self.PlotWellenform = MatplotlibWidget(self.centralwidget)
+        self.horizontalLayout_11 = QtGui.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
+        self.PlotWellenform = PlotWaveform(self.centralwidget)
         self.PlotWellenform.setObjectName(_fromUtf8("PlotWellenform"))
-        self.horizontalLayout_2.addWidget(self.PlotWellenform)
-        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_11.addWidget(self.PlotWellenform)
+        self.horizontalLayout_2.addLayout(self.horizontalLayout_11)
+        self.horizontalLayout_2.setStretch(0, 2)
         self.horizontalLayout_2.setStretch(1, 1)
-        self.horizontalLayout_2.setStretch(2, 1)
+        self.horizontalLayout_2.setStretch(2, 2)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
@@ -83,7 +91,7 @@ class Ui_MainWindow(object):
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
-        #self.BoxFFT.addItem(_fromUtf8(""))
+        self.BoxFFT.addItem(_fromUtf8(""))
         self.verticalLayout_4.addWidget(self.BoxFFT)
         self.labelMittel = QtGui.QLabel(self.tab_4)
         self.labelMittel.setObjectName(_fromUtf8("labelMittel"))
@@ -99,7 +107,7 @@ class Ui_MainWindow(object):
         self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
         self.BoxBew.addItem(_fromUtf8(""))
-        #self.BoxBew.addItem(_fromUtf8(""))
+        self.BoxBew.addItem(_fromUtf8(""))
         self.verticalLayout_4.addWidget(self.BoxBew)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         self.verticalLayout_4.addItem(spacerItem)
@@ -119,26 +127,39 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
-        self.PlotGainVerlauf = MatplotlibWidget(self.tab_5)
+        self.PlotGainVerlauf = GainPlotter(self.tab_5)
         self.PlotGainVerlauf.setObjectName(_fromUtf8("PlotGainVerlauf"))
         self.horizontalLayout_8.addWidget(self.PlotGainVerlauf)
         self.horizontalLayout_9.addLayout(self.horizontalLayout_8)
         self.tabWidget.addTab(self.tab_5, _fromUtf8(""))
+        self.T = QtGui.QWidget()
+        self.T.setObjectName(_fromUtf8("T"))
+        self.horizontalLayout_12 = QtGui.QHBoxLayout(self.T)
+        self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
+        self.horizontalLayout_10 = QtGui.QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(_fromUtf8("horizontalLayout_10"))
+        self.PlotTerzpegel_2 = thirdPenStyles(self.T)
+        self.PlotTerzpegel_2.setObjectName(_fromUtf8("PlotTerzpegel_2"))
+        self.horizontalLayout_10.addWidget(self.PlotTerzpegel_2)
+        self.horizontalLayout_12.addLayout(self.horizontalLayout_10)
+        self.tabWidget.addTab(self.T, _fromUtf8(""))
         self.horizontalLayout_5.addWidget(self.tabWidget)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.DeviceList = QtGui.QComboBox(self.centralwidget)
+        self.DeviceList.setMaximumSize(QtCore.QSize(300, 30))
         self.DeviceList.setObjectName(_fromUtf8("DeviceList"))
         self.horizontalLayout_4.addWidget(self.DeviceList)
         self.ButtonStartStop = QtGui.QPushButton(self.centralwidget)
         self.ButtonStartStop.setMinimumSize(QtCore.QSize(100, 30))
+        self.ButtonStartStop.setMaximumSize(QtCore.QSize(200, 30))
         self.ButtonStartStop.setObjectName(_fromUtf8("ButtonStartStop"))
         self.horizontalLayout_4.addWidget(self.ButtonStartStop)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 881, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 924, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuDatei = QtGui.QMenu(self.menubar)
         self.menuDatei.setObjectName(_fromUtf8("menuDatei"))
@@ -149,7 +170,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuDatei.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -165,20 +186,23 @@ class Ui_MainWindow(object):
         self.BoxFFT.setItemText(6, QtGui.QApplication.translate("MainWindow", "2048", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(7, QtGui.QApplication.translate("MainWindow", "4096", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(8, QtGui.QApplication.translate("MainWindow", "8192", None, QtGui.QApplication.UnicodeUTF8))
-        #self.BoxFFT.setItemText(9, QtGui.QApplication.translate("MainWindow", "16384", None, QtGui.QApplication.UnicodeUTF8))
+        self.BoxFFT.setItemText(9, QtGui.QApplication.translate("MainWindow", "16384", None, QtGui.QApplication.UnicodeUTF8))
         self.labelMittel.setText(QtGui.QApplication.translate("MainWindow", "Mittelungszeit [ms]", None, QtGui.QApplication.UnicodeUTF8))
         self.labelBew.setText(QtGui.QApplication.translate("MainWindow", "Bewertung", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(0, QtGui.QApplication.translate("MainWindow", "keine", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(1, QtGui.QApplication.translate("MainWindow", "A", None, QtGui.QApplication.UnicodeUTF8))
-        #self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "B", None, QtGui.QApplication.UnicodeUTF8))
-        self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
+        self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "B", None, QtGui.QApplication.UnicodeUTF8))
+        self.BoxBew.setItemText(3, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLin.setText(QtGui.QApplication.translate("MainWindow", "linear", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLog.setText(QtGui.QApplication.translate("MainWindow", "log", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "FFT", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Gain-Verlauf", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.T), QtGui.QApplication.translate("MainWindow", "Terzpegel", None, QtGui.QApplication.UnicodeUTF8))
         self.ButtonStartStop.setText(QtGui.QApplication.translate("MainWindow", "START/STOP", None, QtGui.QApplication.UnicodeUTF8))
         self.menuDatei.setTitle(QtGui.QApplication.translate("MainWindow", "Datei", None, QtGui.QApplication.UnicodeUTF8))
 
-from matplotlibwidget import MatplotlibWidget
-from plot_terzpegel import thirdPenStyles
 from plot_channellevel import Channel_Bar
+from matplotlibwidget import MatplotlibWidget
+from plot_gain import GainPlotter
+from plot_waveform import PlotWaveform
+from plot_terzpegel import thirdPenStyles
