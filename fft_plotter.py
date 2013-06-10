@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 29 15:40:50 2013
 
-@author: be2257
-"""
 from pylab import *
 from calc import *
 from numpy import *
@@ -15,7 +11,7 @@ import audio_analyser
 
 class FFTPlotter:
     def __init__(self, PlotSpek, audiobuffer,blocklength):
-
+        ''' function to initialize an objekt of the class FFTPlotter '''
         self.PlotSpek = PlotSpek
         self.audiobuffer = audiobuffer
         self.fs = fs
@@ -25,6 +21,7 @@ class FFTPlotter:
         self.recursive_weight = 0.1
 
     def nextpow2(self,n):
+        ''' function to compute the next lower power of 2 of given input n '''
         m_f = np.log2(n)
         m_i = np.floor(m_f)
         return int(m_i)
@@ -49,12 +46,13 @@ class FFTPlotter:
         if self.blocklength != self.blocklength_old:
             self.data = zeros(self.blocklength/2)
 
-
         # recursive power spectral density estimation
-        self.data = self.recursive_weight*self.data_new+(1-self.recursive_weight)*self.data
+        self.data = (self.recursive_weight*self.data_new
+                    +(1-self.recursive_weight)*self.data)
         self.blocklength_old = self.blocklength
 
-        self.PlotSpek.axes.semilogx(linspace(0,self.fs/4,len(self.data)),self.data) 
+        self.PlotSpek.axes.semilogx(linspace(0,self.fs/4,
+                                             len(self.data)),self.data) 
         self.PlotSpek.axes.set_xlim(0,self.fs/2)
         self.PlotSpek.axes.set_ylim(-100,50)
         self.PlotSpek.draw()
