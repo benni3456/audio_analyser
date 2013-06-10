@@ -55,4 +55,5 @@ class FFTPlotter:
                                              len(self.data)),self.data) 
         self.PlotSpek.axes.set_xlim(0,self.fs/2)
         self.PlotSpek.axes.set_ylim(-100,50)
+        self.PlotSpek.axes.grid(True, which='both')
         self.PlotSpek.draw()
