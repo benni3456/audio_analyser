@@ -35,6 +35,33 @@ class Spectrogram_Plot():
         #     data = sum(data,axis=0)
         #=======================================================================
         
-        self.PlotSpecgram.axes.specgram(sum(data,axis=0), NFFT=nfft, Fs=fs, noverlap=0.5*nfft)
+        Pxx, freqs, bins, im = specgram(sum(data,axis=0), NFFT=nfft, Fs=fs, noverlap=0.5*nfft)
+        numBins, numSpectra = Pxx.shape
+        
+        x = np.arange(0, numSpectra)
+        y = np.arange(0, numBins)
+        z = Pxx
+        #=======================================================================
+        # print("numSpectra = "+str(x))
+        # print("numBins = "+str(y))
+        # print("Pxx = "+str(z))
+        # print(Pxx.shape)
+        #=======================================================================
+
+        self.PlotSpecgram.axes.pcolormesh(x,y,z)
+        #self.PlotSpecgram.axes.set_yscale('symlog')
+        self.PlotSpecgram.axes.axis('tight')
+
+        
+        
+        
+        #=======================================================================
+        # im.set_data(x, y, z)
+        # self.PlotSpecgram.axes.images.append(im) 
+        # self.PlotSpecgram.axes.set_xlim(0,numSpectra)
+        # self.PlotSpecgram.axes.set_ylim(0,numBins)
+        # self.PlotSpecgram.axes.set_yscale('symlog')
+        #=======================================================================
         #self.PlotSpecgram.axes.set_yscale('log')
+        
         self.PlotSpecgram.draw() 

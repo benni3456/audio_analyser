@@ -106,16 +106,13 @@ class MainWindow(QMainWindow):
         # Plot Connection t
         
         
-        self.gain_plotter = gain_plotter.GainPlotter(self.ui.PlotGainVerlauf, self.audiobuffer)
+        self.gain_plotter = gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf, self.audiobuffer)
         self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,self.audiobuffer)        
         self.waveform = waveform.Oszi(self.ui.PlotWellenform,self.audiobuffer)
         self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,self.audiobuffer)
-        
-        #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
         self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
-        
         self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer,self.blocklength)
-        
+        self.spektro_plotter_2 = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,self.audiobuffer)
         
     # if the startStop button is clicked, the timer starts and the stream is filled with acoustic data
         self.ui.ButtonStartStop.clicked.connect(self.stream_run)
@@ -124,23 +121,24 @@ class MainWindow(QMainWindow):
         
     def update_plot(self):
 
-        #=======================================================================
+        isVis_Spektrogram=self.ui.PlotSpektrogramm.isVisible()
+        isvis_FFT = self.ui.PlotFFT.isVisible()
+        
+        
+        
         self.channelplotter.plot()
-        #  
-        #self.gain_plotter.plot()
-        #  
+        self.gain_plotter.plot()  
         self.spektro_plotter.plot(self.weight)
-        #  
-        #self.waveform.plot()
-        #  
-        #=======================================================================
-        #self.specgramplot.plotspecgram(self,self.logger)
-        #self.specgramplot.plotspecgram()
+        self.spektro_plotter_2.plot(self.weight)
+        self.waveform.plot()
+          
+        #if isVis_Spektrogram==True:
+        self.specgramplot.plotspecgram()
          
-        #=======================================================================
-        self.fft_plot.plot(self.blocklength)
-        #=======================================================================
-        time.sleep(0.01)
+        if isvis_FFT==True: 
+            self.fft_plot.plot(self.blocklength)
+
+
     # opens stream if there is none, else closes it  
     def stream_run(self):
         
@@ -149,16 +147,14 @@ class MainWindow(QMainWindow):
             self.logger.push("Timer start")
             self.display_timer.start()
             self.ui.ButtonStartStop.setText("Stop")
-            #self.timer.start()
             self.display_timer.start()
-            #print(logger.log)
+            print(logger.log)
             self.ui.ButtonStartStop.state = 1
         else:
             #closestream()
             self.logger.push("Timer stop")
             self.display_timer.stop()
             self.ui.ButtonStartStop.setText("Start")
-            #self.timer.stop()
             self.display_timer.stop()
             self.ui.ButtonStartStop.state = 0
             print(logger.log)

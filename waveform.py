@@ -44,7 +44,13 @@ class Oszi:
         # calls function for indices of starting- and endpoint of self.NumberOfPeriods periods of the input vector
         zero_crossings = self.findperiod(data)
         # plots self.NumberOfPeriods periods of the input vector
-        self.PlotOszi.axes.plot(data[0][zero_crossings[0]:self.resample*zero_crossings[1]])
-        self.PlotOszi.axes.set_xlim(0,self.resample*zero_crossings[1]-zero_crossings[0])
-        self.PlotOszi.axes.set_ylim(-1,1)
-        self.PlotOszi.draw()
+        
+        
+        
+        self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample*zero_crossings[1]])
+        #=======================================================================
+        # self.PlotOszi.axes.plot(data[0][zero_crossings[0]:self.resample*zero_crossings[1]])
+        # self.PlotOszi.axes.set_xlim(0,self.resample*zero_crossings[1]-zero_crossings[0])
+        # self.PlotOszi.axes.set_ylim(-1,1)
+        # self.PlotOszi.draw()
+        #=======================================================================

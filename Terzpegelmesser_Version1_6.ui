@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>924</width>
+    <height>753</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1,2">
+      <item>
+       <widget class="thirdPenStyles" name="PlotTerzpegel" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>200</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="Channel_Bar" name="PlotKanalpegel" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="PlotWaveform" name="PlotWellenform" native="true"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item alignment="Qt::AlignVCenter">
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>Spektrogramm</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="MatplotlibWidget" name="PlotSpektrogramm"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>FFT</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="MatplotlibWidget" name="PlotFFT"/>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QLabel" name="labelFFT">
+                <property name="text">
+                 <string>FFT-Länge</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="BoxFFT">
+                <item>
+                 <property name="text">
+                  <string>32</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>64</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>128</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>256</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>512</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>1024</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>2048</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>4096</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>8192</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>16384</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelMittel">
+                <property name="text">
+                 <string>Mittelungszeit [ms]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="BoxMittel"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelBew">
+                <property name="text">
+                 <string>Bewertung</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="BoxBew">
+                <item>
+                 <property name="text">
+                  <string>keine</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>A</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>B</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>C</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="RadioLin">
+                <property name="text">
+                 <string>linear</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="RadioLog">
+                <property name="text">
+                 <string>log</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>Gain-Verlauf</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="GainPlotter" name="PlotGainVerlauf" native="true"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="T">
+         <attribute name="title">
+          <string>Terzpegel</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="thirdPenStyles" name="PlotTerzpegel_2" native="true"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QComboBox" name="DeviceList">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ButtonStartStop">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>START/STOP</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>924</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+   </widget>
+   <addaction name="menuDatei"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MatplotlibWidget</class>
+   <extends>QWidget</extends>
+   <header>matplotlibwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>thirdPenStyles</class>
+   <extends>QWidget</extends>
+   <header>plot_terzpegel</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GainPlotter</class>
+   <extends>QWidget</extends>
+   <header>plot_gain</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlotWaveform</class>
+   <extends>QWidget</extends>
+   <header>plot_waveform</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Channel_Bar</class>
+   <extends>QWidget</extends>
+   <header>plot_channellevel</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -12,7 +12,7 @@ from pylab import *
 
 
 
-class plot_waveform(QtGui.QWidget):
+class PlotWaveform(QtGui.QWidget):
     """
     Draw a plot for waveform (Oszilloskop) for the current time
 
@@ -29,12 +29,16 @@ class plot_waveform(QtGui.QWidget):
         self.y_ticks = [-1, 0, 1]
         self.side_space = 50
         self.y_step = 3
+        self.amplitude = (-rand(31) + rand(31))
+        #self.amplitude = range(1, 30)*random.randint(10, 60)
+        self.timeValue = range(-30, 1)
 
-    def readArray(self, amplitude, timeValue):
+
+    def readArray(self, amplitude):
         # read input data arrays
-        assert (len(amplitude) == len(timeValue))
+        #assert (len(amplitude) == len(timeValue))
         self.amplitude = amplitude
-        self.timeValue = timeValue
+        #self.timeValue = timeValue
         #print amplitude
 
     def draw_text(self, painter):
@@ -136,18 +140,21 @@ class plot_waveform(QtGui.QWidget):
         painter.end()
         self.update()
 
-if __name__== '__main__':
-       
-    amplitude = (-rand(31) + rand(31))
-    #amplitude = range(1, 30)*random.randint(10, 60)
-    timeValue = range(-30, 1)
-    print (timeValue)
-    print len(amplitude)
-
-    app = QtGui.QApplication(sys.argv)
-    dt = plot_waveform()
-    
-    dt.readArray(amplitude, timeValue)
-    
-    dt.show()
-    app.exec_()
+#===============================================================================
+# if __name__== '__main__':
+#        
+#     amplitude = (-rand(31) + rand(31))
+#     amplitude = range(1, 30)*random.randint(10, 60)
+#     timeValue = range(-30, 1)
+#     print (timeValue)
+#     print len(amplitude)
+# 
+#     app = QtGui.QApplication(sys.argv)
+#     dt = plot_waveform()
+#     
+#      dt.readArray(amplitude, timeValue)
+#      
+#      dt.show()
+#      app.exec_()
+#===============================================================================
+ 
