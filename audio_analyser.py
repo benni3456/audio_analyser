@@ -64,7 +64,14 @@ class MainWindow(QMainWindow):
 
         # Initialize the frequency weighting flag
         self.weight = 0
-        
+
+        # Initialize the number of samples shown in oscilloscope
+        self.window = 128
+
+        # Initialize the flag for lin (0) and log (1) fft plotting
+        self.plotflag = 1
+
+
         devices = self.audio_device.get_readable_devices_list()
         for device in devices:
             self.ui.DeviceList.addItem(device)
@@ -98,6 +105,10 @@ class MainWindow(QMainWindow):
 
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'), self.update_blocklength)
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'), self.update_weight)
+
+        self.connect(self.ui.RadioLin, SIGNAL("clicked()"), self.update_plotflag_lin)
+        self.connect(self.ui.RadioLog, SIGNAL("clicked()"), self.update_plotflag_log)
+
         #=======================================================================
         # self.ui.DeviceList.setModel(sound_device.AudioDevice())        
         #=======================================================================
@@ -114,7 +125,7 @@ class MainWindow(QMainWindow):
         #self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm)
         self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm, self.audiobuffer)
         
-        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer,self.blocklength)
+        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,self.audiobuffer,self.blocklength,self.plotflag)
         
         
     # if the startStop button is clicked, the timer starts and the stream is filled with acoustic data
@@ -131,14 +142,14 @@ class MainWindow(QMainWindow):
         #  
         self.spektro_plotter.plot(self.weight)
         #  
-        #self.waveform.plot()
+        self.waveform.plot()
         #  
         #=======================================================================
         #self.specgramplot.plotspecgram(self,self.logger)
         #self.specgramplot.plotspecgram()
          
         #=======================================================================
-        self.fft_plot.plot(self.blocklength)
+        self.fft_plot.plot(self.blocklength,self.plotflag)
         #=======================================================================
         time.sleep(0.01)
     # opens stream if there is none, else closes it  
@@ -182,6 +193,15 @@ class MainWindow(QMainWindow):
             print 'Using A Curve'
         elif self.weight == 2:
             print 'Using C Curve'
+
+    def update_plotflag_lin(self):
+        self.plotflag = 0
+        print 'Linear frequency axis selected'
+
+    def update_plotflag_log(self):
+        self.plotflag = 1
+        print 'Logarithmic frequency axis selected'
+
 
     def input_device_changed(self, index):
         #self.ui.actionStart.setChecked(False)
