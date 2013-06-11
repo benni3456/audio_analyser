@@ -11,7 +11,7 @@ import audio_analyser
 from PyQt4 import QtGui
 
 class FFTPlotter:
-    def __init__(self, PlotSpek, audiobuffer,blocklength):
+    def __init__(self, PlotSpek, audiobuffer,blocklength,plotflag=0):
         ''' function to initialize an objekt of the class FFTPlotter '''
         self.PlotSpek = PlotSpek
         color = QtGui.QPalette().base().color()
@@ -22,6 +22,7 @@ class FFTPlotter:
         self.blocklength_old = blocklength
         self.data = zeros(self.blocklength/2)
         self.recursive_weight = 0.1
+        self.plotflag = plotflag
 
     def nextpow2(self,n):
         ''' function to compute the next lower power of 2 of given input n '''
@@ -29,10 +30,11 @@ class FFTPlotter:
         m_i = np.floor(m_f)
         return int(m_i)
 
-    def plot(self,blocklength):
+    def plot(self,blocklength,plotflag=0):
         ''' function to plot the estimated power spectral densitiy '''
 
         # blocklength may be changed by user
+        self.plotflag = plotflag
         self.blocklength = blocklength
         data = self.audiobuffer.newdata()
 
@@ -54,11 +56,17 @@ class FFTPlotter:
                     +(1-self.recursive_weight)*self.data)
         self.blocklength_old = self.blocklength
 
-        self.PlotSpek.axes.semilogx(linspace(0,self.fs/4,
-                                             len(self.data)),self.data) 
-        self.PlotSpek.axes.set_xlim(0,self.fs/2)
+        # plotflag 0 sets the frequency axis to linear stepping
+        if self.plotflag == 0:
+            self.PlotSpek.axes.plot(linspace(0,self.fs/2,
+                                                 len(self.data)),self.data)
+            self.PlotSpek.axes.set_xlim(0,self.fs/2)
+        # plotflag 1 sets the frequency axis to logarithmic stepping
+        else:
+            self.PlotSpek.axes.semilogx(linspace(0,self.fs/4,
+                                                 len(self.data)),self.data)
+            self.PlotSpek.axes.set_xlim(0,self.fs/2)
+
         self.PlotSpek.axes.set_ylim(-100,50)
         self.PlotSpek.axes.grid(True, which='both')
         self.PlotSpek.draw()
-        #color = QtGui.QPalette().window().color()
-        #self.PlotSpek.figure.set_facecolor((color.redF(),color.greenF(),color.blueF()))
