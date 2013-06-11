@@ -8,11 +8,14 @@ import scipy.fftpack
 from sound_device import SAMPLING_RATE as fs
 import Terzpegelmesser
 import audio_analyser
+from PyQt4 import QtGui
 
 class FFTPlotter:
     def __init__(self, PlotSpek, audiobuffer,blocklength):
         ''' function to initialize an objekt of the class FFTPlotter '''
         self.PlotSpek = PlotSpek
+        color = QtGui.QPalette().base().color()
+        self.PlotSpek.figure.set_facecolor((color.redF(),color.greenF(),color.blueF()))
         self.audiobuffer = audiobuffer
         self.fs = fs
         self.blocklength = blocklength
@@ -57,3 +60,5 @@ class FFTPlotter:
         self.PlotSpek.axes.set_ylim(-100,50)
         self.PlotSpek.axes.grid(True, which='both')
         self.PlotSpek.draw()
+        #color = QtGui.QPalette().window().color()
+        #self.PlotSpek.figure.set_facecolor((color.redF(),color.greenF(),color.blueF()))

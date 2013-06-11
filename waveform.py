@@ -11,10 +11,13 @@ from numpy import *
 import scipy
 import scipy.fftpack
 from sound_device import SAMPLING_RATE as fs
+from PyQt4 import QtGui
 
 class Oszi:
     def __init__(self, PlotOszi, audiobuffer):
         self.PlotOszi = PlotOszi
+        color = QtGui.QPalette().window().color()
+        self.PlotOszi.figure.set_facecolor((color.redF(),color.greenF(),color.blueF()))
         self.audiobuffer = audiobuffer
         # number of periods to be displayed
         self.NumberOfPeriods = 4
