@@ -11,7 +11,7 @@ import audio_analyser
 from PyQt4 import QtGui
 
 class FFTPlotter:
-    def __init__(self, PlotSpek, audiobuffer,blocklength,plotflag=0):
+    def __init__(self, PlotSpek, audiobuffer,blocklength,plotflag=1):
         ''' function to initialize an objekt of the class FFTPlotter '''
         self.PlotSpek = PlotSpek
         color = QtGui.QPalette().base().color()
@@ -30,7 +30,7 @@ class FFTPlotter:
         m_i = np.floor(m_f)
         return int(m_i)
 
-    def plot(self,blocklength,plotflag=0):
+    def plot(self,blocklength,plotflag=1):
         ''' function to plot the estimated power spectral densitiy '''
 
         # blocklength may be changed by user
