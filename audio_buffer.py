@@ -13,6 +13,7 @@ from sound_device import SAMPLING_RATE as FS
 
 FRAMES_PER_BUFFER = 1024
 
+
 class AudioBuffer():
     def __init__(self, logger):
         self.ringbuffer = RingBuffer(logger)
@@ -39,7 +40,7 @@ class AudioBuffer():
         return data
 
     def set_delay_ms(self, delay_ms):
-        self.delay_samples = delay_ms*1e-3*FS
+        self.delay_samples = delay_ms * 1e-3 * FS
 
     def data_indexed(self, start, length):
         return self.ringbuffer.data_indexed(start, length)
