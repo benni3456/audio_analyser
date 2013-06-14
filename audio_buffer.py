@@ -35,7 +35,7 @@ class AudioBuffer():
         undelayed = self.data(length)
         delayed = self.data_older(length, self.delay_samples)
         data = delayed
-        data[1,:] = undelayed[1,:]
+        data[1, :] = undelayed[1, :]
         return data
 
     def set_delay_ms(self, delay_ms):
