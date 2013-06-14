@@ -4,44 +4,28 @@ Created on 06.05.2013
 @author: Christopher
 '''
 
-from pylab import *
-from calc import *
+#from pylab import *
+from calc import rms, dB
 import numpy as np
-from plot_channellevel import Channel_Bar
+#from plot_channellevel import Channel_Bar
 
 
 class ChannelPlotter:
-    def __init__(self, PlotChannel,audiobuffer):
+    def __init__(self, PlotChannel, audiobuffer):
         self.PlotChannel = PlotChannel
         self.audiobuffer = audiobuffer
-    
+
     def plot(self):
         ''' function for Plotting each channel gain as a bar plot'''
-        
+
         data = self.audiobuffer.newdata()
-        nchannel,length = data.shape
-        
-        width = 0.5 
-        channel_dB = np.zeros((nchannel),float)
-        index=np.arange(nchannel)
+        nchannel, length = data.shape
+
+        channel_dB = np.zeros((nchannel), float)
+        #index = np.arange(nchannel)
         for i in range(nchannel):
-            channel_dB[i] = dB(rms(data[i,:]))
-        
-        nchannel = np.arange(nchannel)    
-        
-        self.PlotChannel.readArray(channel_dB,nchannel)          
-        #=======================================================================
-        # self.PlotChannel.axes.bar(index, channel_dB+100, width, bottom=-100)
-        # self.PlotChannel.axes.set_ylim(-100,0)
-        # 
-        # self.PlotChannel.axes.set_xlabel('Channels')
-        # 
-        # #=======================================================================
-        # # xTickMarks = ['Channel'+str(i) for i in range(1,nchannel)]
-        # # self.PlotChannel.axes.set_xticks(index+0.01)
-        # # xtickNames = self.PlotChannel.axes.set_xticklabels(xTickMarks)
-        # # self.PlotChannel.axes.step(xtickNames,  rotation=45, fontsize=10)
-        # #=======================================================================
-        # 
-        # self.PlotChannel.draw()
-        #=======================================================================
+            channel_dB[i] = dB(rms(data[i, :]))
+
+        nchannel = np.arange(nchannel)
+
+        self.PlotChannel.readArray(channel_dB, nchannel)

@@ -82,7 +82,8 @@ class MainWindow(QMainWindow):
                                                             self.audiobuffer)
         self.spektro_plotter_2 = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,
                                                             self.audiobuffer)
-        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT, self.audiobuffer,
+        self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,
+                                               self.audiobuffer,
                                                self.blocklength, self.plotflag)
     # if the startStop button is clicked, the timer starts and the stream is
     # filled with acoustic data

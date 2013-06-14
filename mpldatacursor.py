@@ -33,14 +33,14 @@ from matplotlib.collections import PathCollection, LineCollection
 from matplotlib.collections import PatchCollection, PolyCollection, QuadMesh
 from matplotlib.lines import Line2D
 
+
 def datacursor(artists=None, axes=None, **kwargs):
-    """
-    Create an interactive data cursor for the specified artists or specified 
+    """Create an interactive data cursor for the specified artists or specified
     axes. The data cursor displays information about a selected artist in a
     "popup" annotation box.
 
     If a specific sequence of artists is given, only the specified artists will
-    be interactively selectable.  Otherwise, all manually-plotted artists in 
+    be interactively selectable.  Otherwise, all manually-plotted artists in
     *axes* will be used (*axes* defaults to all axes in all figures).
 
     Parameters:
@@ -59,13 +59,13 @@ def datacursor(artists=None, axes=None, **kwargs):
         formatter: callable, optional
             A function that accepts arbitrary kwargs and returns a string
             that will be displayed with annotate. Often, it is convienent to
-            pass in the format method of a template string, e.g. 
+            pass in the format method of a template string, e.g.
             ``formatter="{label}".format``.
             Keyword arguments passed in to the *formatter* function:
                 x, y: floats
                     The x and y data coordinates of the clicked point
                 event: a matplotlib ``PickEvent``
-                    The pick event that was fired (note that the selected 
+                    The pick event that was fired (note that the selected
                     artist can be accessed through ``event.artist``).
                 label: string or None
                     The legend label of the selected artist.
@@ -79,12 +79,12 @@ def datacursor(artists=None, axes=None, **kwargs):
             are not always present, for example:
                 z: number
                     The "z" (usually color or array) value, if present. For an
-                    ``AxesImage`` (as created by ``imshow``), this will be the 
-                    uninterpolated array value at the point clicked. For a 
+                    ``AxesImage`` (as created by ``imshow``), this will be the
+                    uninterpolated array value at the point clicked. For a
                     ``PathCollection`` (as created by ``scatter``) this will be
                     the "c" value if an array was passed to "c".
                 i, j: ints
-                    The row, column indicies of the selected point for an 
+                    The row, column indicies of the selected point for an
                 s: number
                     The size of the selected item in a ``PathCollection`` if a
                     size array is specified.
@@ -115,23 +115,24 @@ def datacursor(artists=None, axes=None, **kwargs):
     if not cbook.iterable(axes):
         axes = [axes]
 
-    # If no artists are specified, get all manually plotted artists in all of 
+    # If no artists are specified, get all manually plotted artists in all of
     # the specified axes.
     if artists is None:
         artists = [artist for ax in axes for artist in plotted_artists(ax)]
 
     return DataCursor(artists, **kwargs)
 
+
 class DataCursor(object):
     """A simple data cursor widget that displays the x,y location of a
     matplotlib artist in an annotation box when the artist is clicked on."""
 
-    default_annotation_kwargs = dict(xy=(0, 0), xytext=(-15, 15), ha='right',  
+    default_annotation_kwargs = dict(xy=(0, 0), xytext=(-15, 15), ha='right',
                 textcoords='offset points', va='bottom',
                 bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
                 arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
 
-    def __init__(self, artists, tolerance=5, formatter=None, 
+    def __init__(self, artists, tolerance=5, formatter=None,
                  display='one-per-axes', draggable=False, **kwargs):
         """Create the data cursor and connect it to the relevant figure.
 
@@ -174,7 +175,7 @@ class DataCursor(object):
         # These are particularly difficult, as the original z-value array
         # is never associated with the ContourSet, and they're not "normal"
         # artists (they're not actually added to the axes). Not only that, but
-        # the PatchCollections created by filled contours don't even fire a 
+        # the PatchCollections created by filled contours don't even fire a
         # pick event for points inside them, only on their edges. At any rate,
         # this is a somewhat hackish way of handling contours, but it works.
         self.artists = filter_artists(artists)
@@ -217,14 +218,14 @@ class DataCursor(object):
         def default_func(event):
             return {}
         registry = {
-                AxesImage : [image_props],
-                PathCollection : [scatter_props, self._contour_info, 
+                AxesImage: [image_props],
+                PathCollection: [scatter_props, self._contour_info,
                                   collection_props],
-                Line2D : [line_props],
-                LineCollection : [collection_props, self._contour_info],
-                PatchCollection : [collection_props, self._contour_info],
-                PolyCollection : [collection_props, scatter_props],
-                QuadMesh : [collection_props],
+                Line2D: [line_props],
+                LineCollection: [collection_props, self._contour_info],
+                PatchCollection: [collection_props, self._contour_info],
+                PolyCollection: [collection_props, scatter_props],
+                QuadMesh: [collection_props],
                 }
         x, y = event.mouseevent.xdata, event.mouseevent.ydata
         props = dict(x=x, y=y, label=event.artist.get_label(), event=event)
@@ -233,12 +234,12 @@ class DataCursor(object):
         for func in funcs:
             props.update(func(event))
         return props
-    
+
     def _contour_info(self, event):
         """Get the z-value for a pick event on an artists in a contour set."""
-        return {'z':self.contour_levels.get(event.artist, None)}
+        return {'z': self.contour_levels.get(event.artist, None)}
 
-    def _formatter(self, event=None, x=None, y=None, z=None, s=None, 
+    def _formatter(self, event=None, x=None, y=None, z=None, s=None,
                    label=None, **kwargs):
         """
         Default formatter function, if no `formatter` kwarg is specified.Takes
@@ -275,7 +276,7 @@ class DataCursor(object):
 
         annotation = ax.annotate('This text will be reset', **kwargs)
 
-        # Place the annotation in the figure instead of the axes so that it 
+        # Place the annotation in the figure instead of the axes so that it
         # doesn't get hidden behind other subplots (zorder won't fix that).
         ax.figure.texts.append(ax.texts.pop())
 
@@ -292,7 +293,7 @@ class DataCursor(object):
         x, y = event.mouseevent.xdata, event.mouseevent.ydata
         annotation.xy = x, y
 
-        # Update the text using the specified formatter function 
+        # Update the text using the specified formatter function
         annotation.set_text(self.formatter(**self.event_info(event)))
 
         # In case it's been hidden earlier...
@@ -303,7 +304,7 @@ class DataCursor(object):
     def __call__(self, event):
         """Create or update annotations for the given event. (This is intended
         to be a callback connected to "pick_event".)"""
-        # Ignore pick events for the annotation box itself (otherwise, 
+        # Ignore pick events for the annotation box itself (otherwise,
         # draggable annotation boxes won't work) and pick events not for the
         # artists that this particular data cursor manages.
         if event.artist not in self.artists:
@@ -328,11 +329,12 @@ class DataCursor(object):
 
         self.update(event, annotation)
 
+
 class HighlightingDataCursor(DataCursor):
     """A data cursor that highlights the selected Line2D artist."""
     def __init__(self, *args, **kwargs):
         """
-        Accepts a series of artists to interactively highlight. 
+        Accepts a series of artists to interactively highlight.
 
         Arguments are identical to ``DataCursor`` except for the following
         keyword arguments:
@@ -342,7 +344,7 @@ class HighlightingDataCursor(DataCursor):
                 The artists to make selectable and display information for.
             highlight_color: a valid color specifier (string or tuple)
                 The color to set the highlighted artist to
-            highlight_width: 
+            highlight_width:
                 The width of the highlighted artist
         """
         self.highlight_color = kwargs.pop('highlight_color', 'yellow')
@@ -370,7 +372,7 @@ class HighlightingDataCursor(DataCursor):
         else:
             self.highlights[artist] = self.create_highlight(artist)
         return self.highlights[artist]
-    
+
     def create_highlight(self, artist):
         """Create a new highlight for the given artist."""
         highlight = copy.copy(artist)
@@ -381,6 +383,7 @@ class HighlightingDataCursor(DataCursor):
         return highlight
 
 #-- Artist-specific pick info functions --------------------------------------
+
 
 def _coords2index(im, x, y):
     """
@@ -403,14 +406,15 @@ def _coords2index(im, x, y):
     array_extent = mtransforms.Bbox([[0, 0], im.get_array().shape])
     trans = mtransforms.BboxTransformFrom(data_extent) +\
             mtransforms.BboxTransformTo(array_extent)
-    return trans.transform_point([x,y]).astype(int)
+    return trans.transform_point([x, y]).astype(int)
+
 
 def image_props(event):
     """
     Get information for a pick event on an ``AxesImage`` artist. Returns a dict
     of "i" & "j" index values of the image for the point clicked, and "z": the
     (uninterpolated) value of the image at i,j.
-    
+
     Parameters:
     -----------
         event : PickEvent
@@ -423,18 +427,19 @@ def image_props(event):
     """
     x, y = event.mouseevent.xdata, event.mouseevent.ydata
     i, j = _coords2index(event.artist, x, y)
-    z = event.artist.get_array()[j,i]
+    z = event.artist.get_array()[j, i]
     return dict(z=z, i=i, j=j)
+
 
 def line_props(event):
     """
     Get information for a pick event on a Line2D artist (as created with
     ``plot``.)
 
-    This will yield x and y values that are interpolated between verticies 
+    This will yield x and y values that are interpolated between verticies
     (instead of just being the position of the mouse) or snapped to the nearest
     vertex only the vertices are drawn.
- 
+
     Parameters:
     -----------
         event : PickEvent
@@ -456,13 +461,14 @@ def line_props(event):
 
     # Interpolate between the indicies so that the x, y coords are precisely
     # on the line instead of at the point clicked.
-    (x0, x1), (y0, y1) = xorig[[i, i+1]], yorig[[i, i+1]]
+    (x0, x1), (y0, y1) = xorig[[i, i + 1]], yorig[[i, i + 1]]
     vec1 = np.array([x1 - x0, y1 - y0])
     vec2 = np.array([xclick - x0, yclick - y0])
     dist_along = vec1.dot(vec2)
     x, y = np.array([x0, y0]) + dist_along * vec1
 
     return dict(x=x, y=y)
+
 
 def collection_props(event):
     ind = event.ind[0]
@@ -474,24 +480,25 @@ def collection_props(event):
         z = arr[ind]
     return dict(z=z, c=z)
 
+
 def scatter_props(event):
     """
-    Get information for a pick event on a PathCollection artist (usually 
-    created with ``scatter``). 
- 
+    Get information for a pick event on a PathCollection artist (usually
+    created with ``scatter``).
+
     Parameters:
     -----------
         event : PickEvent
             The pick event to process
-    
+
     Returns:
     --------
-        A dict with keys: 
+        A dict with keys:
             "c": The value of the color array at the point clicked.
             "s": The value of the size array at the point clicked.
             "z": Identical to "c". Specified for convenience (unified
                  ``template`` kwargs to ``DataCursor``).
-        If constant values were specified to ``c`` or ``s`` when calling 
+        If constant values were specified to ``c`` or ``s`` when calling
         ``scatter``, "c" and/or "z" will be ``None``.
     """
     # Use only the first item, if multiple items were selected
