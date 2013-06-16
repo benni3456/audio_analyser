@@ -43,8 +43,11 @@ class MainWindow(QMainWindow):
         # Initialize the frequency weighting flag
         self.weight = 0
 
-        # Initialize the number of samples shown in oscilloscope
+        # Initialize the number of samples shown in waveform monitor
         self.window = 128
+
+        # Initialize the number of periods shown in waveform monitor
+        self.NumberOfPeriods = 10
 
         # Initialize the flag for lin (0) and log (1) fft plotting
         self.plotflag = 1
@@ -71,11 +74,16 @@ class MainWindow(QMainWindow):
                       self.update_plotflag_lin)
         self.connect(self.ui.RadioLog, SIGNAL("clicked()"),
                       self.update_plotflag_log)
+
+        self.connect(self.ui.push_plus, SIGNAL("clicked()"),
+                      self.update_NumberOfPeriods_plus)
+        self.connect(self.ui.push_minus, SIGNAL("clicked()"),
+                      self.update_NumberOfPeriods_minus)
         self.gain_plotter = gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
                                                        self.audiobuffer)
         self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,
                                                               self.audiobuffer)
-        self.waveform = waveform.Oszi(self.ui.PlotWellenform, self.audiobuffer)
+        self.waveform = waveform.Oszi(self.ui.PlotWellenform, self.audiobuffer,self.NumberOfPeriods)
         self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,
                                                              self.audiobuffer)
         self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm,
@@ -99,7 +107,7 @@ class MainWindow(QMainWindow):
         self.spektro_plotter.plot(self.weight)
 
         self.spektro_plotter_2.plot(self.weight)
-        self.waveform.plot()
+        self.waveform.plot(self.NumberOfPeriods)
         #if isVis_Spektrogram==True:
         self.specgramplot.plotspecgram()
 
@@ -135,6 +143,16 @@ class MainWindow(QMainWindow):
     def update_blocklength(self, newblocklength):
         self.blocklength = 32 * (2 ** newblocklength)
         self.logger.push("Blocksize changed to " + str(self.blocklength))
+        print(logger.log)
+
+    def update_NumberOfPeriods_plus(self):
+        self.NumberOfPeriods += 1
+        self.logger.push("Desired number of periods: " + str(self.NumberOfPeriods))
+        print(logger.log)
+
+    def update_NumberOfPeriods_minus(self):
+        self.NumberOfPeriods -= 1
+        self.logger.push("Desired number of periods: " + str(self.NumberOfPeriods))
         print(logger.log)
 
     def update_weight(self, weight):
