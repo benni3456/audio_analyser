@@ -184,10 +184,12 @@ class MainWindow(QMainWindow):
     def update_plotflag_lin(self):
         self.plotflag = 0
         self.logger.push("Linear frequency axis selected")
+        self.fft_plot.must_plot = True
         print(logger.log)
 
     def update_plotflag_log(self):
         self.plotflag = 1
+        self.fft_plot.must_plot = True
         print(logger.log)
 
     def input_device_changed(self, index):
