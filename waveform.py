@@ -59,4 +59,4 @@ class Oszi:
 
 
         self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
-                                        zero_crossings[1]:self.NumberOfPeriods])
+                                        zero_crossings[1]])
