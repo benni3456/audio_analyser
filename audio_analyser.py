@@ -160,6 +160,11 @@ class MainWindow(QMainWindow):
 
     def update_NumberOfPeriods_minus(self):
         self.NumberOfPeriods -= 1
+
+        # sets lower limit of self.NumberOfPeriods to 1
+        if self.NumberOfPeriods < 1:
+            self.NumberOfPeriods = 1
+
         self.logger.push("Desired number of periods: " +
                          str(self.NumberOfPeriods))
         print(logger.log)

@@ -20,7 +20,7 @@ class Oszi:
 
     def findperiod(self, dat, NumberOfPeriods):
         ''' function that computes and returns possible period length
-            within give data
+            within given data
         '''
 
         # extracts audio data from list; possible downsampling by factor
@@ -57,5 +57,6 @@ class Oszi:
 
         # plots self.NumberOfPeriods periods of the input vector
 
+
         self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
-                                        zero_crossings[1]])
+                                        zero_crossings[1]:self.NumberOfPeriods])

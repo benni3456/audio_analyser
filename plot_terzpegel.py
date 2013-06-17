@@ -22,68 +22,69 @@ class thirdPenStyles(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.setGeometry(300, 200, 1000, 500)
+        self.setMinimumSize(200, 200)
         self.setWindowTitle('graphic')
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
-        self.sidespace = 50
-        self.setMinimumSize(200, 200)
-        self.freqValue = [29]
-        self.dBValue = [29]
+        self.side_space = 50
+        self.freq_value = [29]
+        self.db_value = [29]
 
-    def readArray(self, dBValue, freqValue):
+    def readArray(self, db_value, freq_value):
         '''reads data to draw from input device
         '''
-        assert (len(dBValue) == len(freqValue))
-        self.dBValue = dBValue
-        self.freqValue = freqValue
+        assert (len(db_value) == len(freq_value))
+        self.db_value = db_value
+        self.freq_value = freq_value
 
     def draw_text(self, painter):
         '''draws the text of the axis
         '''
-        painter.drawText(QtCore.QRectF(self.width() - self.sidespace * 2, 0,
-                                       20, 20), QtCore.Qt.AlignCenter, 'fm')
-        painter.drawText(QtCore.QRectF(-30, -self.height() + self.sidespace +
+        painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2, 0,
+                                       20, 20), QtCore.Qt.AlignCenter,
+                         u"ƒm")
+        painter.drawText(QtCore.QRectF(-30, -self.height() + self.side_space +
                                     20, 20, 20), QtCore.Qt.AlignCenter, 'dB')
-        lesstext = 1
-        textspace = (self.width() - self.sidespace * 2) / (len(self.freqValue))
-        startpoint = 0.5 * textspace
-        while textspace < 25:
-            textspace = textspace * 2
-            lesstext = lesstext * 2
-        for i in range(0, len(self.freqValue), lesstext):
-            painter.drawText(QtCore.QRectF(startpoint - textspace / 2, 0,
-                                         textspace, 20), QtCore.Qt.AlignCenter,
-                                         str(int(self.freqValue[i])))
+        less_text = 1
+        text_space = (self.width() - self.side_space * 2) / (len(self.freq_value))
+        start_point = 0.5 * text_space
+        while text_space < 25:
+            text_space = text_space * 2
+            less_text = less_text * 2
+        for i in range(0, len(self.freq_value), less_text):
+            painter.drawText(QtCore.QRectF(start_point - text_space / 2, 0,
+                                         text_space, 20), QtCore.Qt.AlignCenter,
+                                         str(int(self.freq_value[i])))
                                             #x-Achse Beschriftung
-            startpoint = startpoint + textspace
+            start_point = start_point + text_space
         count_ticks = 5
         y_axis = -10
         for i in range(0, count_ticks):
             painter.drawText(QtCore.QRectF(-30, y_axis, 20, 20),
                              QtCore.Qt.AlignCenter, str(self.y_ticks[i]))
             #y achse beschriftung
-            y_axis = y_axis - ((self.height() - self.sidespace * 2) /
+            y_axis = y_axis - ((self.height() - self.side_space * 2) /
                                                     (count_ticks - 1))
-
+    print unichr(131)
     def draw_ticks(self, rectspace, painter):
         '''
         draws the ticks of the axis
         '''
         painter.save()
-        painter.scale(((self.width() - self.sidespace * 2) /
-                                (len(self.freqValue))), 1)
+        painter.scale(((self.width() - self.side_space * 2) /
+                                (len(self.freq_value))), 1)
         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
-        startpoint = 0
+        start_point = 0
         #Schleife für x-Achse
-        for a in range(0, len(self.dBValue), 1):
-            painter.drawLine(QtCore.QLineF(startpoint + (rectspace / 2), 0,
-                                           startpoint + (rectspace / 2), 3))
+        for a in range(0, len(self.db_value), 1):
+            painter.drawLine(QtCore.QLineF(start_point + (rectspace / 2), 0,
+                                           start_point + (rectspace / 2), 3))
             #x achse einheiten striche
-            startpoint = startpoint + rectspace
+            start_point = start_point + rectspace
         painter.restore()
         painter.save()
-        painter.scale(1, -((self.height() - self.sidespace * 2) /
+        painter.scale(1, -((self.height() - self.side_space * 2) /
                            self.y_anzahl))
         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
@@ -100,16 +101,16 @@ class thirdPenStyles(QtGui.QWidget):
         draws data into the plot axis
         '''
         painter.save()
-        painter.scale(((self.width() - self.sidespace * 2) /
-                       (len(self.freqValue))), - ((self.height() -
-                                self.sidespace * 2) / self.y_anzahl))
+        painter.scale(((self.width() - self.side_space * 2) /
+                       (len(self.freq_value))), - ((self.height() -
+                                self.side_space * 2) / self.y_anzahl))
         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         brush = QtGui.QBrush(QtCore.Qt.green)
         painter.setBrush(brush)
         startpoint = 0
-        for a in range(0, len(self.dBValue), 1):
-            db = self.dBValue[a]
+        for a in range(0, len(self.db_value), 1):
+            db = self.db_value[a]
             if db < -80:
                 db = -80
             painter.drawRect(QtCore.QRectF(startpoint, 0, rectspace, 80 + db))
@@ -125,19 +126,19 @@ class thirdPenStyles(QtGui.QWidget):
         pen = QtGui.QPen(QtCore.Qt.black, 1, QtCore.Qt.SolidLine)
         brush = QtGui.QBrush(QtCore.Qt.white)
         painter.setBrush(brush)
-        painter.drawRect(self.sidespace, self.sidespace, self.width() -
-                                    self.sidespace * 2, self.height() -
-                                    self.sidespace * 2)
+        painter.drawRect(self.side_space, self.side_space, self.width() -
+                                    self.side_space * 2, self.height() -
+                                    self.side_space * 2)
         painter.setBrush(QtGui.QBrush())
         painter.setPen(pen)
-        painter.drawLine(self.sidespace, self.sidespace, self.sidespace,
-                                            self.height() - self.sidespace)
+        painter.drawLine(self.side_space, self.side_space, self.side_space,
+                                            self.height() - self.side_space)
         # x-Axis frequency
-        painter.drawLine(self.sidespace, self.height() - self.sidespace,
-                         self.width() - self.sidespace, self.height() -
-                        self.sidespace)
+        painter.drawLine(self.side_space, self.height() - self.side_space,
+                         self.width() - self.side_space, self.height() -
+                        self.side_space)
         #y-Axis dB
-        painter.translate(self.sidespace, self.height() - self.sidespace)
+        painter.translate(self.side_space, self.height() - self.side_space)
         # Koordinatensystem auf 0 Punkt der Grafik
         self.draw_text(painter)
         rectspace = 1
