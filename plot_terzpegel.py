@@ -22,7 +22,7 @@ class thirdPenStyles(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.setGeometry(300, 200, 1000, 500)
-        self.setMinimumSize(200, 200)
+        self.setMinimumSize(100, 100)
         self.setWindowTitle('graphic')
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
