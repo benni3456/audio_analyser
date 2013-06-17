@@ -10,6 +10,7 @@ from __future__ import division
 from PyQt4 import QtGui, QtCore
 from pylab import rand
 
+import sound_device
 
 class PlotWaveform(QtGui.QWidget):
     """
@@ -30,11 +31,15 @@ class PlotWaveform(QtGui.QWidget):
         self.amplitude = (-rand(31) + rand(31))
         #self.amplitude = range(1, 30)*random.randint(10, 60)
         self.timeValue = range(-30, 1)
+        self.fs = sound_device.SAMPLING_RATE
 
     def readArray(self, amplitude):
         # read input data arrays
         #assert (len(amplitude) == len(timeValue))
         self.amplitude = amplitude
+        print len(self.amplitude),'samples = ', \
+            1000*len(self.amplitude)/self.fs ,'ms'
+
         #self.timeValue = timeValue
         #print amplitude
 
@@ -95,14 +100,14 @@ class PlotWaveform(QtGui.QWidget):
     def draw_data(self, painter):
         painter.save()
         painter.scale(((self.width() - self.side_space * 2) /
-                       (len(self.timeValue))),
+                       (len(self.amplitude))),
                       - ((self.height() - self.side_space * 2 - 30) /
                          self.y_range))
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         brush = QtGui.QBrush(QtCore.Qt.blue)
         painter.setBrush(brush)
-        start_point = 31
-        end_point = 30
+        start_point = len(self.amplitude)
+        end_point = len(self.amplitude)-1
         for a in range(0, len(self.amplitude), 1):
             db = self.amplitude[a]
             db_last = self.amplitude[(a - 1)]
