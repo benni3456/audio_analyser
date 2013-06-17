@@ -65,7 +65,7 @@ class thirdPenStyles(QtGui.QWidget):
             #y achse beschriftung
             y_axis = y_axis - ((self.height() - self.side_space * 2) /
                                                     (count_ticks - 1))
-    print unichr(131)
+#    print unichr(131)
     def draw_ticks(self, rectspace, painter):
         '''
         draws the ticks of the axis
