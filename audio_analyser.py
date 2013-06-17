@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
 
         # Initialize the blocklength
         self.blocklength = 2048
-        self.logger.push("set Blocksize to " + str(self.blocklength))
+        self.logger.push("initial set Blocksize to " + str(self.blocklength))
         # Initialize the frequency weighting flag
         self.weight = 0
 
@@ -79,17 +79,23 @@ class MainWindow(QMainWindow):
                       self.update_NumberOfPeriods_plus)
         self.connect(self.ui.push_minus, SIGNAL("clicked()"),
                       self.update_NumberOfPeriods_minus)
-        self.gain_plotter = gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
-                                                       self.audiobuffer)
-        self.spektro_plotter = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,
-                                                              self.audiobuffer)
-        self.waveform = waveform.Oszi(self.ui.PlotWellenform, self.audiobuffer,self.NumberOfPeriods)
-        self.channelplotter = channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,
-                                                             self.audiobuffer)
-        self.specgramplot = spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm,
-                                                            self.audiobuffer)
-        self.spektro_plotter_2 = spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,
-                                                            self.audiobuffer)
+        self.gain_plotter = (
+                        gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
+                                                       self.audiobuffer))
+        self.spektro_plotter = (
+                        spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,
+                                                            self.audiobuffer))
+        self.waveform = waveform.Oszi(self.ui.PlotWellenform,
+                                      self.audiobuffer, self.NumberOfPeriods)
+        self.channelplotter = (
+                        channel_plotter.ChannelPlotter(self.ui.PlotKanalpegel,
+                                                             self.audiobuffer))
+        self.specgramplot = (
+                spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm,
+                                                            self.audiobuffer))
+        self.spektro_plotter_2 = (
+                        spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,
+                                                            self.audiobuffer))
         self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,
                                                self.audiobuffer,
                                                self.blocklength, self.plotflag)
@@ -135,7 +141,8 @@ class MainWindow(QMainWindow):
             print(logger.log)
 
     def update_buffer(self):
-        chunks, t, newpoints = self.audio_device.update(self.audiobuffer.ringbuffer)
+        chunks, t, newpoints = (
+                        self.audio_device.update(self.audiobuffer.ringbuffer))
         self.audiobuffer.set_newdata(newpoints)
         self.chunk_number += chunks
         self.buffer_timer_time = (95. * self.buffer_timer_time + 5. * t) / 100.
@@ -147,12 +154,14 @@ class MainWindow(QMainWindow):
 
     def update_NumberOfPeriods_plus(self):
         self.NumberOfPeriods += 1
-        self.logger.push("Desired number of periods: " + str(self.NumberOfPeriods))
+        self.logger.push("Desired number of periods: " +
+                         str(self.NumberOfPeriods))
         print(logger.log)
 
     def update_NumberOfPeriods_minus(self):
         self.NumberOfPeriods -= 1
-        self.logger.push("Desired number of periods: " + str(self.NumberOfPeriods))
+        self.logger.push("Desired number of periods: " +
+                         str(self.NumberOfPeriods))
         print(logger.log)
 
     def update_weight(self, weight):

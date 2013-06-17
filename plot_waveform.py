@@ -6,10 +6,9 @@ Created on Mon Apr 29 15:00:40 2013
 """
 
 from __future__ import division
-import sys
+#import sys
 from PyQt4 import QtGui, QtCore
-from pylab import *
-
+from pylab import rand
 
 
 class PlotWaveform(QtGui.QWidget):
@@ -19,7 +18,6 @@ class PlotWaveform(QtGui.QWidget):
     The plot is drawn centered on the widget with smaller width/height as the
     widget itself. If the widget is not square, the smaller dimension is used.
     """
-
 
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
@@ -33,7 +31,6 @@ class PlotWaveform(QtGui.QWidget):
         #self.amplitude = range(1, 30)*random.randint(10, 60)
         self.timeValue = range(-30, 1)
 
-
     def readArray(self, amplitude):
         # read input data arrays
         #assert (len(amplitude) == len(timeValue))
@@ -43,10 +40,11 @@ class PlotWaveform(QtGui.QWidget):
 
     def draw_text(self, painter):
         painter.drawText(QtCore.QRectF(-30,
-                        -(self.height()-2 * self.side_space) / 2-20, 40, 20),
+                        -(self.height() - 2 * self.side_space)
+                        / 2 - 20, 40, 20),
                          QtCore.Qt.AlignCenter, 'signal')
         painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2,
-                        (self.height()-2 * self.side_space) / 2, 20, 20),
+                        (self.height() - 2 * self.side_space) / 2, 20, 20),
                          QtCore.Qt.AlignCenter, 'time')
         start_point = 0
         x_step_size = ((self.width() - self.side_space * 2) /
@@ -59,7 +57,7 @@ class PlotWaveform(QtGui.QWidget):
                              QtCore.Qt.AlignCenter, str(self.timeValue[i]))
             start_point = (start_point + (self.width() - self.side_space * 2) /
                           (len(self.timeValue)))
-        y_axis = (self.height()-2 * self.side_space) / 2
+        y_axis = (self.height() - 2 * self.side_space) / 2
         painter.drawText(QtCore.QRectF(-30, y_axis - 25, 20, 20),
                          QtCore.Qt.AlignCenter, 'min')
         y_axis = (y_axis - (self.height() - self.side_space * 2) /
@@ -84,7 +82,7 @@ class PlotWaveform(QtGui.QWidget):
                                                    self.side_space) / 2,
                                            a + 1, (self.height() - 2 *
                                                    self.side_space) / 2 + 3))
-        painter.restore()   
+        painter.restore()
         painter.save()
         # scale number of value
         painter.scale(1, -(self.height() - 2 * self.side_space - 30) / 2)
@@ -139,22 +137,3 @@ class PlotWaveform(QtGui.QWidget):
         self.draw_data(painter)
         painter.end()
         self.update()
-
-#===============================================================================
-# if __name__== '__main__':
-#        
-#     amplitude = (-rand(31) + rand(31))
-#     amplitude = range(1, 30)*random.randint(10, 60)
-#     timeValue = range(-30, 1)
-#     print (timeValue)
-#     print len(amplitude)
-# 
-#     app = QtGui.QApplication(sys.argv)
-#     dt = plot_waveform()
-#     
-#      dt.readArray(amplitude, timeValue)
-#      
-#      dt.show()
-#      app.exec_()
-#===============================================================================
- 
