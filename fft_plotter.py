@@ -80,5 +80,4 @@ class FFTPlotter:
         else:
             self.lines.set_ydata(self.data)
 
-        
         self.PlotSpek.draw()
