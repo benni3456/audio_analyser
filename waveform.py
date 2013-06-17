@@ -43,6 +43,8 @@ class Oszi:
             # in case of even slope
             if len(zero_crossings[0]) < (self.NumberOfPeriods * 2):
                 return [zero_crossings[0][1], zero_crossings[0][-1]]
+            elif len(zero_crossings[0]) < 2:
+                return [zero_crossings[0][0], zero_crossings[0][0]]
             else:
                 return [zero_crossings[0][0], zero_crossings[0][
                                             self.NumberOfPeriods * 2]]
@@ -59,4 +61,4 @@ class Oszi:
 
 
         self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
-                                        zero_crossings[1]:self.NumberOfPeriods])
+                                        zero_crossings[1]])
