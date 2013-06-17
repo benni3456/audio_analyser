@@ -39,9 +39,6 @@ class PlotWaveform(QtGui.QWidget):
         #assert (len(amplitude) == len(timeValue))
         self.amplitude = amplitude
         self.maxtime = 0.1*round(10000*len(self.amplitude)/self.fs)
-        print len(self.amplitude),'samples = ', \
-            self.maxtime ,'ms'
-
         #self.timeValue = timeValue
         #print amplitude
 
