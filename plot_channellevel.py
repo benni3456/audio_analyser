@@ -19,38 +19,38 @@ class Channel_Bar(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
 
         self.setGeometry(300, 200, 1000, 500)
+        self.setMinimumSize(500, 300)
         self.setWindowTitle('graphic')
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
         self.sidespace = 50
-        self.setMinimumSize(500, 300)
-        self.freqValue = [1]
-        self.dBValue = [1]
+        self.freq_value = [1]
+        self.db_value = [1]
     # read input data arrays
 
-    def readArray(self, dBValue, freqValue):
+    def readArray(self, db_value, freq_value):
 
-        assert (len(dBValue) == len(freqValue))
-        self.dBValue = dBValue
-        self.freqValue = freqValue
+        assert (len(db_value) == len(freq_value))
+        self.db_value = db_value
+        self.freq_value = freq_value
 
     def draw_text(self, painter):
         painter.drawText(QtCore.QRectF(self.width() - self.sidespace * 2, 0,
-                                20, 20), QtCore.Qt.AlignCenter, 'channel')
+                                40, 20), QtCore.Qt.AlignCenter, 'channel')
         painter.drawText(QtCore.QRectF(-30, -self.height() + self.sidespace
                                        + 20, 20, 20), QtCore.Qt.AlignCenter,
                                         'dB')
         lesstext = 1
-        textspace = (self.width() - self.sidespace * 2) / (len(self.freqValue))
+        textspace = (self.width() - self.sidespace * 2) / (len(self.freq_value))
         startpoint = 0.5 * textspace
         while textspace < 25:
             textspace = textspace * 2
             lesstext = lesstext * 2
 
-        for i in range(0, len(self.freqValue), lesstext):
+        for i in range(0, len(self.freq_value), lesstext):
             painter.drawText(QtCore.QRectF(startpoint -
                         textspace / 2, 0, textspace, 20),
-                        QtCore.Qt.AlignCenter, str(int(self.freqValue[i])))
+                        QtCore.Qt.AlignCenter, str(int(self.freq_value[i])))
                         # x-Achse Beschriftung
             startpoint = startpoint + textspace
 
@@ -68,13 +68,13 @@ class Channel_Bar(QtGui.QWidget):
 
         painter.save()
         painter.scale(((self.width() - self.sidespace *
-                        2) / (len(self.freqValue))), 1)
+                        2) / (len(self.freq_value))), 1)
                         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
 
         startpoint = 0
         #Schleife für x-Achse
-        for a in range(0, len(self.dBValue), 1):
+        for a in range(0, len(self.db_value), 1):
             painter.drawLine(QtCore.QLineF(startpoint + (balkenbreite / 2), 0,
                                            startpoint + (balkenbreite / 2), 3))
                                             #x achse einheiten striche
@@ -98,13 +98,13 @@ class Channel_Bar(QtGui.QWidget):
     def draw_data(self, balkenbreite, painter):
         painter.save()
         painter.scale(((self.width() - self.sidespace *
-                        2) / (len(self.freqValue))), - ((self.height() -
+                        2) / (len(self.freq_value))), - ((self.height() -
                                         self.sidespace * 2) / self.y_anzahl))
                         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         startpoint = 0
-        for a in range(0, len(self.dBValue), 1):
-            db = self.dBValue[a]
+        for a in range(0, len(self.db_value), 1):
+            db = self.db_value[a]
 
             if db < -80:
                 db = -80
@@ -158,16 +158,16 @@ class Channel_Bar(QtGui.QWidget):
 
 if __name__ == '__main__':
 
-    dBValue = -(abs(randn(2)) * 10 + 0)
-    #dBValue = range(1, 30)*random.randint(10, 60)
+    db_value = -(abs(randn(2)) * 10 + 0)
+    #db_value = range(1, 30)*random.randint(10, 60)
     freqValue = range(1, 3)
     print (freqValue)
-    print (dBValue)
+    print (db_value)
 
     app = QtGui.QApplication(sys.argv)
     dt = Channel_Bar()
 
-    dt.readArray(dBValue, freqValue)
+    dt.readArray(db_value, freqValue)
 
     dt.show()
     app.exec_()
