@@ -12,7 +12,7 @@ from pyaudio import PyAudio, paInt32
 from numpy import floor, int32, fromstring, vstack, iinfo, float64
 
 
-SAMPLING_RATE = 44800
+SAMPLING_RATE = 44100
 FRAMES_PER_BUFFER = 1024
 
 
