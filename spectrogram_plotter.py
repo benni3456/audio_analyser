@@ -36,9 +36,7 @@ class Spectrogram_Plot():
 
         self.specdata[:, 0:-numSpectra] = self.specdata[:, numSpectra:]
         self.specdata[:, -numSpectra:] = Pxx
-        print np.min(Pxx[:, 1])
-        print("---")
-        print np.max(Pxx[:,1])
+
         self.PlotSpecgram.axes.pcolormesh(self.x, self.y, self.specdata, vmin=-120, vmax =-0)
         self.PlotSpecgram.axes.axis('tight')
         self.PlotSpecgram.draw()
