@@ -66,19 +66,83 @@ class MainWindow(QMainWindow):
                      self.stream_run)
         self.connect(self.ui.DeviceList, SIGNAL('currentIndexChanged(int)'),
                      self.input_device_changed)
+
+
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'),
                       self.update_blocklength)
+
+
+
+        self.ui.action32.triggered.connect(lambda:self.update_blocklength(0))
+        self.ui.action32.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(0))
+        self.ui.action64.triggered.connect(lambda:self.update_blocklength(1))
+        self.ui.action64.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(1))
+        self.ui.action128.triggered.connect(lambda:self.update_blocklength(2))
+        self.ui.action128.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(2))
+        self.ui.action256.triggered.connect(lambda:self.update_blocklength(3))
+        self.ui.action256.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(3))
+        self.ui.action512.triggered.connect(lambda:self.update_blocklength(4))
+        self.ui.action512.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(4))
+        self.ui.action1024.triggered.connect(lambda:self.update_blocklength(
+            5))
+        self.ui.action1024.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(5))
+        self.ui.action2048.triggered.connect(lambda:self.update_blocklength(
+            6))
+        self.ui.action2048.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(6))
+        self.ui.action4096.triggered.connect(lambda:self.update_blocklength(
+            7))
+        self.ui.action4096.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(7))
+        self.ui.action8192.triggered.connect(lambda:self.update_blocklength(
+            8))
+        self.ui.action8192.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(8))
+
+
+
+
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'),
                       self.update_weight)
+
+        self.ui.actionNone.triggered.connect(lambda:self.update_weight(0))
+        self.ui.actionNone.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(0))
+        self.ui.actionA.triggered.connect(lambda:self.update_weight(1))
+        self.ui.actionA.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(1))
+        self.ui.actionC.triggered.connect(lambda:self.update_weight(2))
+        self.ui.actionC.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(2))
+
         self.connect(self.ui.RadioLin, SIGNAL("clicked()"),
                       self.update_plotflag_lin)
         self.connect(self.ui.RadioLog, SIGNAL("clicked()"),
                       self.update_plotflag_log)
 
+        self.ui.actionLogarithmic.triggered.connect(self.update_plotflag_log)
+        self.ui.actionLogarithmic.triggered.connect(
+            lambda:self.ui.RadioLog.setChecked(True))
+        self.ui.actionLinear.triggered.connect(self.update_plotflag_lin)
+        self.ui.actionLinear.triggered.connect(
+            lambda:self.ui.RadioLin.setChecked(True))
+
         self.connect(self.ui.push_plus, SIGNAL("clicked()"),
-                      self.update_NumberOfPeriods_plus)
-        self.connect(self.ui.push_minus, SIGNAL("clicked()"),
                       self.update_NumberOfPeriods_minus)
+        self.ui.actionZoom_Out.triggered.connect(
+                    self.update_NumberOfPeriods_plus)
+
+        self.connect(self.ui.push_minus, SIGNAL("clicked()"),
+                      self.update_NumberOfPeriods_plus)
+        self.ui.actionZoom_In.triggered.connect(
+                    self.update_NumberOfPeriods_minus)
+
         self.gain_plotter = (
                         gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
                                                        self.audiobuffer))
@@ -180,6 +244,8 @@ class MainWindow(QMainWindow):
         elif self.weight == 2:
             self.logger.push("Using C Curve")
             print(logger.log)
+        else:
+            print self.weight
 
     def update_plotflag_lin(self):
         self.plotflag = 0
