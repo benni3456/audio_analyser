@@ -8,6 +8,7 @@ import numpy as np
 from pylab import specgram
 from numpy import sum
 from sound_device import SAMPLING_RATE as fs
+from PyQt4 import QtGui
 
 SMOOTH_DISPLAY_TIMER_PERIOD_MS = 25
 DEFAULT_TIMERANGE = 2 * SMOOTH_DISPLAY_TIMER_PERIOD_MS
@@ -19,6 +20,9 @@ class Spectrogram_Plot():
     def __init__(self, PlotSpecgram, audiobuffer):
         self.PlotSpecgram = PlotSpecgram
         self.audiobuffer = audiobuffer
+        color = QtGui.QPalette().base().color()
+        self.PlotSpecgram.figure.set_facecolor((color.redF(), color.greenF(),
+                                                 color.blueF()))
         self.bufferlen = 300
         self.specdata = np.zeros((129, self.bufferlen))
         numBins, numSpectra = self.specdata.shape
@@ -37,6 +41,7 @@ class Spectrogram_Plot():
         self.specdata[:, 0:-numSpectra] = self.specdata[:, numSpectra:]
         self.specdata[:, -numSpectra:] = Pxx
 
-        self.PlotSpecgram.axes.pcolormesh(self.x, self.y, self.specdata, vmin=-120, vmax =-0)
+        self.PlotSpecgram.axes.pcolormesh(self.x, self.y, self.specdata,
+                                          vmin=-120, vmax=-0)
         self.PlotSpecgram.axes.axis('tight')
         self.PlotSpecgram.draw()
