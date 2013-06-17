@@ -4,8 +4,8 @@ Created on 13.05.2013
 @author: Christopher
 '''
 
-from pylab import specgram
 import numpy as np
+from pylab import specgram
 from numpy import sum
 from sound_device import SAMPLING_RATE as fs
 
@@ -19,18 +19,26 @@ class Spectrogram_Plot():
     def __init__(self, PlotSpecgram, audiobuffer):
         self.PlotSpecgram = PlotSpecgram
         self.audiobuffer = audiobuffer
+        self.bufferlen = 300
+        self.specdata = np.zeros((129, self.bufferlen))
+        numBins, numSpectra = self.specdata.shape
+        self.x = np.arange(0, numSpectra)
+        self.y = np.linspace(0, fs / 2, numBins)
 
-    def plotspecgram(self, nfft = 256):
+    def plotspecgram(self, nfft=256):
 
         data = self.audiobuffer.newdata()
-        Pxx, freqs, bins, im = specgram(sum(data, axis = 0),
-                NFFT = nfft, Fs = fs, noverlap = 0.5 * nfft)
-        numBins, numSpectra = Pxx.shape
+        Pxx, _, _, _ = specgram(sum(data, axis=0),
+                NFFT=nfft, Fs=fs, noverlap=0.5 * nfft)
+        _, numSpectra = Pxx.shape
 
-        x = np.arange(0, numSpectra)
-        y = np.arange(0, numBins)
-        z = Pxx
+        Pxx = np.log10(Pxx) * 10
 
-        self.PlotSpecgram.axes.pcolormesh(x, y, z)
+        self.specdata[:, 0:-numSpectra] = self.specdata[:, numSpectra:]
+        self.specdata[:, -numSpectra:] = Pxx
+        print np.min(Pxx[:, 1])
+        print("---")
+        print np.max(Pxx[:,1])
+        self.PlotSpecgram.axes.pcolormesh(self.x, self.y, self.specdata, vmin=-120, vmax =-0)
         self.PlotSpecgram.axes.axis('tight')
         self.PlotSpecgram.draw()
