@@ -359,7 +359,7 @@
    </property>
    <widget class="QMenu" name="menuDatei">
     <property name="title">
-     <string>Datei</string>
+     <string>File</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuTerzpegel">
@@ -386,6 +386,13 @@
      </property>
      <addaction name="action32"/>
      <addaction name="action64"/>
+     <addaction name="action128"/>
+     <addaction name="action256"/>
+     <addaction name="action512"/>
+     <addaction name="action1024"/>
+     <addaction name="action2048"/>
+     <addaction name="action4096"/>
+     <addaction name="action8192"/>
     </widget>
     <widget class="QMenu" name="menuSkalierung">
      <property name="title">
@@ -453,6 +460,41 @@
   <action name="actionZoom_Out">
    <property name="text">
     <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="action128">
+   <property name="text">
+    <string>128</string>
+   </property>
+  </action>
+  <action name="action256">
+   <property name="text">
+    <string>256</string>
+   </property>
+  </action>
+  <action name="action512">
+   <property name="text">
+    <string>512</string>
+   </property>
+  </action>
+  <action name="action1024">
+   <property name="text">
+    <string>1024</string>
+   </property>
+  </action>
+  <action name="action2048">
+   <property name="text">
+    <string>2048</string>
+   </property>
+  </action>
+  <action name="action4096">
+   <property name="text">
+    <string>4096</string>
+   </property>
+  </action>
+  <action name="action8192">
+   <property name="text">
+    <string>8192</string>
    </property>
   </action>
  </widget>
