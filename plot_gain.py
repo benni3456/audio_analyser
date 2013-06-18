@@ -93,19 +93,19 @@ class GainPlotter(QtGui.QWidget):
         painter.scale(((self.width() - 200) / (len(self.timeValue) /
                                            (self.temporaldist))
                                            * (1 / self.temporaldist)),
-                                           -((self.height() - 200)
+                                           -((self.height()-200)
                                              / self.y_range))
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         brush = QtGui.QBrush(QtCore.Qt.blue)
         painter.setBrush(brush)
         # start at time 0 (on the right), draw to the left
-        startpoint = len(self.dBValue)
+        startpoint = 0
         for a in range(0, len(self.dBValue) - 1, 1):
-            db = self.dBValue[a]
-            db2 = self.dBValue[a + 1]
-            painter.drawLine(QtCore.QLineF(startpoint, db, startpoint - 1,
+            db = self.dBValue[a] +80
+            db2 = self.dBValue[a + 1]+80
+            painter.drawLine(QtCore.QLineF(startpoint, db, startpoint + 1,
                                             db2))
-            startpoint = startpoint - 1
+            startpoint = startpoint + 1
         painter.restore()
 
     # call function by PyQt
