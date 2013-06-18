@@ -23,7 +23,7 @@ class Channel_Bar(QtGui.QWidget):
         self.setWindowTitle('graphic')
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
-        self.sidespace = 50
+        self.side_space = 50
         self.freq_value = [1]
         self.db_value = [1]
     # read input data arrays
@@ -35,13 +35,13 @@ class Channel_Bar(QtGui.QWidget):
         self.freq_value = freq_value
 
     def draw_text(self, painter):
-        painter.drawText(QtCore.QRectF(self.width() - self.sidespace * 2, 0,
+        painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2, 0,
                                 40, 20), QtCore.Qt.AlignCenter, 'channel')
-        painter.drawText(QtCore.QRectF(-30, -self.height() + self.sidespace
+        painter.drawText(QtCore.QRectF(-30, -self.height() + self.side_space
                                        + 20, 20, 20), QtCore.Qt.AlignCenter,
                                         'dB')
         lesstext = 1
-        textspace = (self.width() - self.sidespace * 2) / (len(self.freq_value))
+        textspace = (self.width() - self.side_space * 2) / (len(self.freq_value))
         startpoint = 0.5 * textspace
         while textspace < 25:
             textspace = textspace * 2
@@ -61,13 +61,13 @@ class Channel_Bar(QtGui.QWidget):
                     QtCore.Qt.AlignCenter | QtCore.Qt.TextDontClip,
                     str(self.y_ticks[i]))
                     #y achse beschriftung
-            y_axis = y_axis - (self.height() - self.sidespace * 2) / (
+            y_axis = y_axis - (self.height() - self.side_space * 2) / (
                                                         count_ticks - 1)
 
     def draw_ticks(self, balkenbreite, painter):
 
         painter.save()
-        painter.scale(((self.width() - self.sidespace *
+        painter.scale(((self.width() - self.side_space *
                         2) / (len(self.freq_value))), 1)
                         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
@@ -82,7 +82,7 @@ class Channel_Bar(QtGui.QWidget):
         painter.restore()
         painter.save()
         #print("self.y_anzahl %s" %self.y_anzahl)
-        painter.scale(1, - ((self.height() - self.sidespace *
+        painter.scale(1, - ((self.height() - self.side_space *
                              2) / self.y_anzahl))
                             # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
@@ -97,9 +97,9 @@ class Channel_Bar(QtGui.QWidget):
 
     def draw_data(self, balkenbreite, painter):
         painter.save()
-        painter.scale(((self.width() - self.sidespace *
+        painter.scale(((self.width() - self.side_space *
                         2) / (len(self.freq_value))), - ((self.height() -
-                                        self.sidespace * 2) / self.y_anzahl))
+                                        self.side_space * 2) / self.y_anzahl))
                         # Skalieren auf Anzahl der Werte
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         startpoint = 0
@@ -131,20 +131,20 @@ class Channel_Bar(QtGui.QWidget):
         pen = QtGui.QPen(QtCore.Qt.black, 1, QtCore.Qt.SolidLine)
         brush = QtGui.QBrush(QtCore.Qt.white)
         painter.setBrush(brush)
-        painter.drawRect(self.sidespace, self.sidespace, self.width()
-                    - self.sidespace * 2, self.height() - self.sidespace * 2)
+        painter.drawRect(self.side_space, self.side_space, self.width()
+                    - self.side_space * 2, self.height() - self.side_space * 2)
         painter.setBrush(QtGui.QBrush())
         painter.setPen(pen)
 
-        painter.drawLine(self.sidespace, self.sidespace, self.sidespace,
-                         self.height() - self.sidespace)
+        painter.drawLine(self.side_space, self.side_space, self.side_space,
+                         self.height() - self.side_space)
             # x-Axis frequency
-        painter.drawLine(self.sidespace, self.height() - self.sidespace,
-                         self.width() - self.sidespace, self.height() -
-                         self.sidespace)
+        painter.drawLine(self.side_space, self.height() - self.side_space,
+                         self.width() - self.side_space, self.height() -
+                         self.side_space)
         #y-Axis dB
 
-        painter.translate(self.sidespace, self.height() - self.sidespace)
+        painter.translate(self.side_space, self.height() - self.side_space)
         # Koordinatensystem auf 0 Punkt der Grafik
 
         self.draw_text(painter)

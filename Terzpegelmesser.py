@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Terzpegelmesser_Version1_6.ui'
 #
-# Created: Mon Jun 10 20:49:26 2013
+# Created: Mon Jun 17 14:59:14 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,17 +14,19 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1066, 702)
+        MainWindow.resize(833, 612)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.horizontalLayout_17 = QtGui.QHBoxLayout()
+        self.horizontalLayout_17.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
+        self.horizontalLayout_17.setObjectName(_fromUtf8("horizontalLayout_17"))
         self.PlotTerzpegel = thirdPenStyles(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -33,7 +35,8 @@ class Ui_MainWindow(object):
         self.PlotTerzpegel.setSizePolicy(sizePolicy)
         self.PlotTerzpegel.setMinimumSize(QtCore.QSize(200, 200))
         self.PlotTerzpegel.setObjectName(_fromUtf8("PlotTerzpegel"))
-        self.horizontalLayout_2.addWidget(self.PlotTerzpegel)
+        self.horizontalLayout_17.addWidget(self.PlotTerzpegel)
+        self.horizontalLayout_2.addLayout(self.horizontalLayout_17)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
@@ -93,14 +96,7 @@ class Ui_MainWindow(object):
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
         self.BoxFFT.addItem(_fromUtf8(""))
-        self.BoxFFT.addItem(_fromUtf8(""))
         self.verticalLayout_4.addWidget(self.BoxFFT)
-        self.labelMittel = QtGui.QLabel(self.tab_4)
-        self.labelMittel.setObjectName(_fromUtf8("labelMittel"))
-        self.verticalLayout_4.addWidget(self.labelMittel)
-        self.BoxMittel = QtGui.QDoubleSpinBox(self.tab_4)
-        self.BoxMittel.setObjectName(_fromUtf8("BoxMittel"))
-        self.verticalLayout_4.addWidget(self.BoxMittel)
         self.labelBew = QtGui.QLabel(self.tab_4)
         self.labelBew.setObjectName(_fromUtf8("labelBew"))
         self.verticalLayout_4.addWidget(self.labelBew)
@@ -167,7 +163,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1066, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 833, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuDatei = QtGui.QMenu(self.menubar)
         self.menuDatei.setObjectName(_fromUtf8("menuDatei"))
@@ -194,8 +190,6 @@ class Ui_MainWindow(object):
         self.BoxFFT.setItemText(6, QtGui.QApplication.translate("MainWindow", "2048", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(7, QtGui.QApplication.translate("MainWindow", "4096", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(8, QtGui.QApplication.translate("MainWindow", "8192", None, QtGui.QApplication.UnicodeUTF8))
-        self.BoxFFT.setItemText(9, QtGui.QApplication.translate("MainWindow", "16384", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelMittel.setText(QtGui.QApplication.translate("MainWindow", "Mittelungszeit [ms]", None, QtGui.QApplication.UnicodeUTF8))
         self.labelBew.setText(QtGui.QApplication.translate("MainWindow", "Bewertung", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(0, QtGui.QApplication.translate("MainWindow", "keine", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxBew.setItemText(1, QtGui.QApplication.translate("MainWindow", "A", None, QtGui.QApplication.UnicodeUTF8))
