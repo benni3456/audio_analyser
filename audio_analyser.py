@@ -246,6 +246,8 @@ class MainWindow(QMainWindow):
         elif self.weight == 2:
             self.logger.push("Using C Curve")
             print(logger.log)
+        else:
+            print self.weight
 
     def update_plotflag_lin(self):
         self.plotflag = 0

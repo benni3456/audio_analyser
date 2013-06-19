@@ -24,8 +24,8 @@ class Channel_Bar(QtGui.QWidget):
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
         self.side_space = 50
-        self.freq_value = [1]
-        self.db_value = [1]
+        self.freq_value = [0]
+        self.db_value = [0]*0
     # read input data arrays
 
     def readArray(self, db_value, freq_value):
