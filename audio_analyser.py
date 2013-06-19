@@ -69,6 +69,57 @@ class MainWindow(QMainWindow):
                      self.input_device_changed)
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'),
                       self.update_blocklength)
+
+
+
+
+
+        self.ui.action32.triggered.connect(lambda:self.update_blocklength(0))
+        self.ui.action32.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(0))
+        self.ui.action64.triggered.connect(lambda:self.update_blocklength(1))
+        self.ui.action64.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(1))
+        self.ui.action128.triggered.connect(lambda:self.update_blocklength(2))
+        self.ui.action128.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(2))
+        self.ui.action256.triggered.connect(lambda:self.update_blocklength(3))
+        self.ui.action256.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(3))
+        self.ui.action512.triggered.connect(lambda:self.update_blocklength(4))
+        self.ui.action512.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(4))
+        self.ui.action1024.triggered.connect(lambda:self.update_blocklength(
+            5))
+        self.ui.action1024.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(5))
+        self.ui.action2048.triggered.connect(lambda:self.update_blocklength(
+            6))
+        self.ui.action2048.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(6))
+        self.ui.action4096.triggered.connect(lambda:self.update_blocklength(
+            7))
+        self.ui.action4096.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(7))
+        self.ui.action8192.triggered.connect(lambda:self.update_blocklength(
+            8))
+        self.ui.action8192.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(8))
+
+
+        self.ui.actionNone.triggered.connect(lambda:self.update_weight(0))
+        self.ui.actionNone.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(0))
+        self.ui.actionA.triggered.connect(lambda:self.update_weight(1))
+        self.ui.actionA.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(1))
+        self.ui.actionC.triggered.connect(lambda:self.update_weight(2))
+        self.ui.actionC.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(2))
+
+
+
+
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'),
                       self.update_weight)
         self.connect(self.ui.RadioLin, SIGNAL("clicked()"),
