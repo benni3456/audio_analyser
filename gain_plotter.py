@@ -24,7 +24,4 @@ class Gain_Plotter:
         self.stream_data[0:-1] = self.stream_data[1:]
         self.stream_data[-1] = r_m_s
 
-    # recalls function gain_meter, so therefore computes the level in dB FS
-        #self.wholestream = concatenate([self.wholestream,[r_m_s]])
-
         self.PlotSpek.read_array(self.stream_data)
