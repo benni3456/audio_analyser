@@ -127,10 +127,24 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.RadioLog, SIGNAL("clicked()"),
                       self.update_plotflag_log)
 
+        self.ui.actionLogarithmic.triggered.connect(self.update_plotflag_log)
+        self.ui.actionLogarithmic.triggered.connect(
+            lambda:self.ui.RadioLog.setChecked(True))
+        self.ui.actionLinear.triggered.connect(self.update_plotflag_lin)
+        self.ui.actionLinear.triggered.connect(
+            lambda:self.ui.RadioLin.setChecked(True))
+
+
         self.connect(self.ui.push_plus, SIGNAL("clicked()"),
-                      self.update_NumberOfPeriods_plus)
-        self.connect(self.ui.push_minus, SIGNAL("clicked()"),
                       self.update_NumberOfPeriods_minus)
+        self.ui.actionZoom_Out.triggered.connect(
+                    self.update_NumberOfPeriods_plus)
+
+        self.connect(self.ui.push_minus, SIGNAL("clicked()"),
+                      self.update_NumberOfPeriods_plus)
+        self.ui.actionZoom_In.triggered.connect(
+                    self.update_NumberOfPeriods_minus)
+
         self.gain_plotter = (
                         gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
                                                        self.audiobuffer))

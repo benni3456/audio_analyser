@@ -29,20 +29,16 @@ class PlotWaveform(QtGui.QWidget):
         self.side_space = 50
         self.y_step = 3
         self.amplitude = (-rand(31) + rand(31))
-        #self.amplitude = range(1, 30)*random.randint(10, 60)
-        self.timeValue = range(0, 2)
+        self.time_value = range(0, 2)
         self.fs = sound_device.SAMPLING_RATE
-        self.maxtime = 1
+        self.max_time = 1
 
     def readArray(self, amplitude):
         # read input data arrays
-        #assert (len(amplitude) == len(timeValue))
+        #assert (len(amplitude) == len(time_value))
         self.amplitude = amplitude
-
-        self.maxtime = 0.1*round(10000*len(self.amplitude)/self.fs)
-
-        #self.timeValue = timeValue
-        #print amplitude
+        self.max_time = 0.1*round(10000*len(self.amplitude)/self.fs)
+        #self.time_value = time_value
 
     def draw_text(self, painter):
         painter.drawText(QtCore.QRectF(-30,
@@ -54,20 +50,20 @@ class PlotWaveform(QtGui.QWidget):
                          QtCore.Qt.AlignCenter, 'ms')
         start_point = 0
         x_step_size = ((self.width() - self.side_space * 2) /
-                     (len(self.timeValue)))
+                     (len(self.time_value)))
 
             # label x-axis
         painter.drawText(QtCore.QRectF(start_point - x_step_size / 2,
                             (self.height() - 2 * self.side_space) / 2,
                             x_step_size, 20),
-                             QtCore.Qt.AlignCenter, str(self.timeValue[0]))
+                             QtCore.Qt.AlignCenter, str(self.time_value[0]))
 
         start_point = (start_point + (self.width() - self.side_space * 2) /
-                          (len(self.timeValue))*2)
+                          (len(self.time_value))*2)
         painter.drawText(QtCore.QRectF(start_point - x_step_size / 2,
                             (self.height() - 2 * self.side_space) / 2,
                             x_step_size, 20),
-                             QtCore.Qt.AlignCenter, str(self.maxtime))
+                             QtCore.Qt.AlignCenter, str(self.max_time))
 
         y_axis = (self.height() - 2 * self.side_space) / 2
         painter.drawText(QtCore.QRectF(-30, y_axis - 25, 20, 20),
@@ -86,7 +82,7 @@ class PlotWaveform(QtGui.QWidget):
         painter.save()
         # scale number of value
         painter.scale(((self.width() - self.side_space * 2) /
-                       (len(self.timeValue))), 1)
+                       (len(self.time_value))), 1)
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         start_point = 0
         for a in range(0, 2):
