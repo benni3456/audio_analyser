@@ -38,7 +38,7 @@ class GainPlotter(QtGui.QWidget):
 
     def read_array(self, dBValue, timeValue = arange(0, 100, 1)):
         """ Function to read input data arrays """
-        #assert (len(dBValue) == len(timeValue))
+        #assert (len(dBValue) == len(time_value))
         self.dBValue = dBValue
         self.timeValue = timeValue
 
