@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.chunk_number = 0
         self.buffer_timer_time = 0.
         self.cpu_percent = 0.
+        self.setMinimumSize(1000, 600)
         # Initialize the audio data ring buffer
         self.audiobuffer = AudioBuffer(self.logger)
 
