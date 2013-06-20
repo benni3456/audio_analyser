@@ -7,7 +7,7 @@ import sys
 from PyQt4.QtCore import QTimer, SIGNAL
 from PyQt4.QtGui import QMainWindow, QApplication, QErrorMessage
 from audio_buffer import AudioBuffer
-from sound_device import AudioDevice
+from audio_device import AudioDevice
 from log_class import Logger
 
 import Terzpegelmesser
