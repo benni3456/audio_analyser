@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.chunk_number = 0
         self.buffer_timer_time = 0.
         self.cpu_percent = 0.
+        self.setMinimumSize(1000, 600)
         # Initialize the audio data ring buffer
         self.audiobuffer = AudioBuffer(self.logger)
 
@@ -68,6 +69,57 @@ class MainWindow(QMainWindow):
                      self.input_device_changed)
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'),
                       self.update_blocklength)
+
+
+
+
+
+        self.ui.action32.triggered.connect(lambda:self.update_blocklength(0))
+        self.ui.action32.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(0))
+        self.ui.action64.triggered.connect(lambda:self.update_blocklength(1))
+        self.ui.action64.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(1))
+        self.ui.action128.triggered.connect(lambda:self.update_blocklength(2))
+        self.ui.action128.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(2))
+        self.ui.action256.triggered.connect(lambda:self.update_blocklength(3))
+        self.ui.action256.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(3))
+        self.ui.action512.triggered.connect(lambda:self.update_blocklength(4))
+        self.ui.action512.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(4))
+        self.ui.action1024.triggered.connect(lambda:self.update_blocklength(
+            5))
+        self.ui.action1024.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(5))
+        self.ui.action2048.triggered.connect(lambda:self.update_blocklength(
+            6))
+        self.ui.action2048.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(6))
+        self.ui.action4096.triggered.connect(lambda:self.update_blocklength(
+            7))
+        self.ui.action4096.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(7))
+        self.ui.action8192.triggered.connect(lambda:self.update_blocklength(
+            8))
+        self.ui.action8192.triggered.connect(
+            lambda:self.ui.BoxFFT.setCurrentIndex(8))
+
+
+        self.ui.actionNone.triggered.connect(lambda:self.update_weight(0))
+        self.ui.actionNone.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(0))
+        self.ui.actionA.triggered.connect(lambda:self.update_weight(1))
+        self.ui.actionA.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(1))
+        self.ui.actionC.triggered.connect(lambda:self.update_weight(2))
+        self.ui.actionC.triggered.connect(
+            lambda:self.ui.BoxBew.setCurrentIndex(2))
+
+
+
+
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'),
                       self.update_weight)
         self.connect(self.ui.RadioLin, SIGNAL("clicked()"),
@@ -111,7 +163,6 @@ class MainWindow(QMainWindow):
         self.channelplotter.plot()
         self.gain_plotter.plot()
         self.spektro_plotter.plot(self.weight)
-
         self.spektro_plotter_2.plot(self.weight)
         self.waveform.plot(self.NumberOfPeriods)
         #if isVis_Spektrogram==True:
@@ -149,6 +200,7 @@ class MainWindow(QMainWindow):
 
     def update_blocklength(self, newblocklength):
         self.blocklength = 32 * (2 ** newblocklength)
+        self.fft_plot.must_plot = True
         self.logger.push("Blocksize changed to " + str(self.blocklength))
         print(logger.log)
 
@@ -184,16 +236,17 @@ class MainWindow(QMainWindow):
     def update_plotflag_lin(self):
         self.plotflag = 0
         self.logger.push("Linear frequency axis selected")
+        self.fft_plot.must_plot = True
         print(logger.log)
 
     def update_plotflag_log(self):
         self.plotflag = 1
+        self.logger.push("Logarithmic frequency axis selected")
+        self.fft_plot.must_plot = True
         print(logger.log)
 
     def input_device_changed(self, index):
-        #self.ui.actionStart.setChecked(False)
         success, index = self.audio_device.select_input_device(index)
-
         self.ui.DeviceList.setCurrentIndex(index)
         if not success:
 # Note: the error message is a child of the settings dialog, so that
@@ -206,14 +259,12 @@ class MainWindow(QMainWindow):
     def statistics(self):
         if not self.about_dialog.LabelStats.isVisible():
             return
-
         label = "Chunk #%d\n"\
         "Audio buffer retrieval: %.02f ms\n"\
         "Global CPU usage: %d %%\n"\
         "Number of overflowed inputs (XRUNs): %d"\
         % (self.chunk_number, self.buffer_timer_time, self.cpu_percent,
             self.audio_device.xruns)
-
         self.about_dialog.LabelStats.setText(label)
 
 if __name__ == '__main__':

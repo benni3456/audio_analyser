@@ -37,6 +37,12 @@ class thirdPenStyles(QtGui.QWidget):
         self.db_value = db_value
         self.freq_value = freq_value
 
+    def frequency_formatter(self, f):
+        if f < 1000:
+            return(str(int(f)))
+        else:
+            return("%2.1fk"%(f/1000))
+
     def draw_text(self, painter):
         '''draws the text of the axis
         '''
@@ -48,13 +54,14 @@ class thirdPenStyles(QtGui.QWidget):
         less_text = 1
         text_space = (self.width() - self.side_space * 2) / (len(self.freq_value))
         start_point = 0.5 * text_space
-        while text_space < 25:
+        while text_space < 30:
             text_space = text_space * 2
             less_text = less_text * 2
+
         for i in range(0, len(self.freq_value), less_text):
             painter.drawText(QtCore.QRectF(start_point - text_space / 2, 0,
                                          text_space, 20), QtCore.Qt.AlignCenter,
-                                         str(int(self.freq_value[i])))
+                                         self.frequency_formatter(self.freq_value[i]))
                                             #x-Achse Beschriftung
             start_point = start_point + text_space
         count_ticks = 5

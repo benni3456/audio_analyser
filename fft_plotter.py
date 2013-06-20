@@ -22,6 +22,8 @@ class FFTPlotter:
         self.data = np.zeros(self.blocklength / 2)
         self.recursive_weight = 0.1
         self.plotflag = plotflag
+        self.must_plot = True
+
 
     def nextpow2(self, n):
         ''' function to compute the next lower power of 2 of given input n '''
@@ -56,17 +58,26 @@ class FFTPlotter:
                     + (1 - self.recursive_weight) * self.data)
         self.blocklength_old = self.blocklength
 
-        # plotflag 0 sets the frequency axis to linear stepping
-        if self.plotflag == 0:
-            self.PlotSpek.axes.plot(np.linspace(0, self.fs / 2,
-                                                 len(self.data)), self.data)
-            self.PlotSpek.axes.set_xlim(0, self.fs / 2)
-        # plotflag 1 sets the frequency axis to logarithmic stepping
-        else:
-            self.PlotSpek.axes.semilogx(np.linspace(0, self.fs / 4,
-                                                 len(self.data)), self.data)
-            self.PlotSpek.axes.set_xlim(0, self.fs / 2)
+        if self.must_plot:
 
-        self.PlotSpek.axes.set_ylim(-100, 50)
-        self.PlotSpek.axes.grid(True, which='both')
+            # plotflag 0 sets the frequency axis to linear stepping
+            if self.plotflag == 0:
+                self.lines, = self.PlotSpek.axes.plot(np.linspace(0,
+                                                     self.fs / 2,
+                                                     len(self.data)),
+                                                     self.data)
+
+                self.PlotSpek.axes.set_xlim(0, self.fs / 2)
+            # plotflag 1 sets the frequency axis to logarithmic stepping
+            else:
+                self.lines, = self.PlotSpek.axes.semilogx(np.linspace(0,
+                                    self.fs / 4, len(self.data)), self.data)
+                self.PlotSpek.axes.set_xlim(0, self.fs / 2)
+
+            self.PlotSpek.axes.set_ylim(-100, 50)
+            self.PlotSpek.axes.grid(True, which='both')
+            self.must_plot = False
+        else:
+            self.lines.set_ydata(self.data)
+
         self.PlotSpek.draw()

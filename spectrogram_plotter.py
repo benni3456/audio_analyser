@@ -23,7 +23,7 @@ class Spectrogram_Plot():
         color = QtGui.QPalette().base().color()
         self.PlotSpecgram.figure.set_facecolor((color.redF(), color.greenF(),
                                                  color.blueF()))
-        self.bufferlen = 300
+        self.bufferlen = 400
         self.specdata = np.zeros((129, self.bufferlen))
         numBins, numSpectra = self.specdata.shape
         self.x = np.arange(0, numSpectra)

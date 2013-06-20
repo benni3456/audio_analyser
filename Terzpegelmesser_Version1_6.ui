@@ -47,6 +47,12 @@
         </property>
         <item>
          <widget class="Channel_Bar" name="PlotKanalpegel" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>150</width>
@@ -362,25 +368,25 @@
      <string>File</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuTerzpegel">
+   <widget class="QMenu" name="menuThirds">
     <property name="title">
      <string>Thirds</string>
     </property>
-    <widget class="QMenu" name="menuBewertung">
+    <widget class="QMenu" name="menuWeighting">
      <property name="title">
       <string>Weighting</string>
      </property>
-     <addaction name="actionKeine"/>
+     <addaction name="actionNone"/>
      <addaction name="actionA"/>
      <addaction name="actionC"/>
     </widget>
-    <addaction name="menuBewertung"/>
+    <addaction name="menuWeighting"/>
    </widget>
    <widget class="QMenu" name="menuFFT">
     <property name="title">
      <string>FFT</string>
     </property>
-    <widget class="QMenu" name="menuFFT_L_nge">
+    <widget class="QMenu" name="menuFFT_Length">
      <property name="title">
       <string>FFT Length</string>
      </property>
@@ -394,15 +400,15 @@
      <addaction name="action4096"/>
      <addaction name="action8192"/>
     </widget>
-    <widget class="QMenu" name="menuSkalierung">
+    <widget class="QMenu" name="menuScaling">
      <property name="title">
       <string>Scaling</string>
      </property>
      <addaction name="actionLinear"/>
      <addaction name="actionLogarithmic"/>
     </widget>
-    <addaction name="menuFFT_L_nge"/>
-    <addaction name="menuSkalierung"/>
+    <addaction name="menuFFT_Length"/>
+    <addaction name="menuScaling"/>
    </widget>
    <widget class="QMenu" name="menuWavemeter">
     <property name="title">
@@ -412,12 +418,12 @@
     <addaction name="actionZoom_Out"/>
    </widget>
    <addaction name="menuDatei"/>
-   <addaction name="menuTerzpegel"/>
+   <addaction name="menuThirds"/>
    <addaction name="menuFFT"/>
    <addaction name="menuWavemeter"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionKeine">
+  <action name="actionNone">
    <property name="text">
     <string>none</string>
    </property>

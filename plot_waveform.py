@@ -39,7 +39,6 @@ class PlotWaveform(QtGui.QWidget):
         self.amplitude = amplitude
         self.max_time = 0.1*round(10000*len(self.amplitude)/self.fs)
         #self.time_value = time_value
-        #print amplitude
 
     def draw_text(self, painter):
         painter.drawText(QtCore.QRectF(-30,
