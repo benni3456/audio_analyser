@@ -11,7 +11,7 @@ from PyQt4 import QtGui, QtCore
 from pylab import rand
 import numpy as np
 
-import sound_device
+import audio_device
 
 class PlotWaveform(QtGui.QWidget):
     """
@@ -31,7 +31,7 @@ class PlotWaveform(QtGui.QWidget):
         self.y_step = 3
         self.amplitude = np.zeros(62)
         self.time_value = range(0, 2)
-        self.fs = sound_device.SAMPLING_RATE
+        self.fs = audio_device.SAMPLING_RATE
         self.max_time = 1
 
     def readArray(self, amplitude):

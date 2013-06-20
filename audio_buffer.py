@@ -8,7 +8,7 @@ Audiobuffer for audio analyser and using a ringbuffer.
 
 
 from ringbuffer import RingBuffer
-from sound_device import SAMPLING_RATE as FS
+from audio_device import SAMPLING_RATE as FS
 
 
 FRAMES_PER_BUFFER = 1024

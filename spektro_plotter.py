@@ -1,7 +1,7 @@
 from pylab import float64, array
 from calc import rms, dB
 from scipy.signal import butter, lfilter
-from sound_device import SAMPLING_RATE as fs
+from audio_device import SAMPLING_RATE as fs
 from plot_terzpegel import thirdPenStyles
 
 

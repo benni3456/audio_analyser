@@ -3,7 +3,7 @@
 
 from calc import dB
 import numpy as np
-from sound_device import SAMPLING_RATE as fs
+from audio_device import SAMPLING_RATE as fs
 from PyQt4 import QtGui
 import scipy
 
