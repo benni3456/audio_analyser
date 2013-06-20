@@ -9,6 +9,7 @@ from __future__ import division
 #import sys
 from PyQt4 import QtGui, QtCore
 from pylab import rand
+import numpy as np
 
 import sound_device
 
@@ -28,7 +29,7 @@ class PlotWaveform(QtGui.QWidget):
         self.y_ticks = [-1, 0, 1]
         self.side_space = 50
         self.y_step = 3
-        self.amplitude = (-rand(31) + rand(31))
+        self.amplitude = np.zeros(62)
         self.time_value = range(0, 2)
         self.fs = sound_device.SAMPLING_RATE
         self.max_time = 1
