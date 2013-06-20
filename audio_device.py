@@ -20,9 +20,7 @@ class AudioDevice(QtCore.QObject):
     def __init__(self, logger):
         QtCore.QObject.__init__(self)
         self.logger = logger
-
         self.duo_input = False
-
         self.logger.push("Initializing PyAudio")
         self.pa = PyAudio()
 
@@ -279,9 +277,7 @@ class AudioDevice(QtCore.QObject):
             channel_2 = self.get_current_second_channel()
 
         chunks = 0
-
         available = self.stream.get_read_available()
-
         available = int(floor(available / FRAMES_PER_BUFFER))
         for j in range(0, available):
             try:
@@ -293,25 +289,21 @@ class AudioDevice(QtCore.QObject):
                 print "Caught an IOError on stream read.", inst
                 break
             intdata_all_channels = fromstring(rawdata, int32)
-
             int32info = iinfo(int32)
             norm_coeff = max(abs(int32info.min), int32info.max)
             floatdata_all_channels = (intdata_all_channels.astype(float64) /
                                        float(norm_coeff))
 
             floatdata1 = floatdata_all_channels[channel::nchannels]
-
             if self.duo_input:
                 floatdata2 = floatdata_all_channels[channel_2::nchannels]
                 floatdata = vstack((floatdata1, floatdata2))
             else:
                 floatdata = floatdata1
                 floatdata.shape = (1, FRAMES_PER_BUFFER)
-
             # update the circular buffer
             ringbuffer.push(floatdata)
             chunks += 1
-
         return (chunks, t.elapsed(), chunks * FRAMES_PER_BUFFER)
 
     def set_single_input(self):

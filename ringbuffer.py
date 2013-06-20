@@ -32,7 +32,8 @@ class RingBuffer():
         # first copy, always complete
         offset = self.offset % self.buffer_length
         self.buffer[:, offset: offset + l] = floatdata[:, :]
-        # second copy, can be folded
+        
+		# second copy, can be folded
         direct = min(l, self.buffer_length - offset)
         folded = l - direct
         self.buffer[:, offset + self.buffer_length: offset +

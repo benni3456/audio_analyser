@@ -27,8 +27,8 @@ class thirdPenStyles(QtGui.QWidget):
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
         self.side_space = 50
-        self.freq_value = [29]
-        self.db_value = [29]
+        self.freq_value = [0]
+        self.db_value = [0]*0
 
     def readArray(self, db_value, freq_value):
         '''reads data to draw from input device
