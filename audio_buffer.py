@@ -23,8 +23,8 @@ class AudioBuffer():
     def data(self, length):
         return self.ringbuffer.data(length)
 
-    def data_older(self, length, delay_samples):
-        return self.ringbuffer.data_older(length, delay_samples)
+    def data_old(self, length, delay_samples):
+        return self.ringbuffer.data_old(length, delay_samples)
 
     def newdata(self):
         return self.data(self.newpoints)
@@ -34,7 +34,7 @@ class AudioBuffer():
 
     def data_delayed(self, length):
         undelayed = self.data(length)
-        delayed = self.data_older(length, self.delay_samples)
+        delayed = self.data_old(length, self.delay_samples)
         data = delayed
         data[1, :] = undelayed[1, :]
         return data

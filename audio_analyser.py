@@ -34,22 +34,17 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(1000, 600)
         # Initialize the audio data ring buffer
         self.audiobuffer = AudioBuffer(self.logger)
-
         # Initialize the audio device
         self.audio_device = AudioDevice(self.logger)
-
         # Initialize the blocklength
         self.blocklength = 2048
         self.logger.push("initial set Blocksize to " + str(self.blocklength))
         # Initialize the frequency weighting flag
         self.weight = 0
-
         # Initialize the number of samples shown in waveform monitor
         self.window = 128
-
         # Initialize the number of periods shown in waveform monitor
         self.NumberOfPeriods = 10
-
         # Initialize the flag for lin (0) and log (1) fft plotting
         self.plotflag = 1
         devices = self.audio_device.get_readable_devices_list()
@@ -69,10 +64,6 @@ class MainWindow(QMainWindow):
                      self.input_device_changed)
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'),
                       self.update_blocklength)
-
-
-
-
 
         self.ui.action32.triggered.connect(lambda:self.update_blocklength(0))
         self.ui.action32.triggered.connect(
@@ -106,7 +97,6 @@ class MainWindow(QMainWindow):
         self.ui.action8192.triggered.connect(
             lambda:self.ui.BoxFFT.setCurrentIndex(8))
 
-
         self.ui.actionNone.triggered.connect(lambda:self.update_weight(0))
         self.ui.actionNone.triggered.connect(
             lambda:self.ui.BoxBew.setCurrentIndex(0))
@@ -116,9 +106,6 @@ class MainWindow(QMainWindow):
         self.ui.actionC.triggered.connect(lambda:self.update_weight(2))
         self.ui.actionC.triggered.connect(
             lambda:self.ui.BoxBew.setCurrentIndex(2))
-
-
-
 
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'),
                       self.update_weight)
@@ -179,8 +166,8 @@ class MainWindow(QMainWindow):
         self.spektro_plotter.plot(self.weight)
         self.spektro_plotter_2.plot(self.weight)
         self.waveform.plot(self.NumberOfPeriods)
-        #if isVis_Spektrogram==True:
-        self.specgramplot.plotspecgram()
+        if isvis_FFT==False:
+			self.specgramplot.plotspecgram()
 
         if isvis_FFT == True:
             self.fft_plot.plot(self.blocklength, self.plotflag)

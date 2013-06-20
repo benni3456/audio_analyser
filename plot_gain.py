@@ -10,6 +10,7 @@ Created on Mon Apr 29 15:00:40 2013
 from __future__ import division
 from PyQt4 import QtGui, QtCore
 from pylab import randn, arange
+import numpy as np
 
 
 class GainPlotter(QtGui.QWidget):
@@ -28,7 +29,7 @@ class GainPlotter(QtGui.QWidget):
         self.y_range = Ymax_min
         self.y_ticks = range(-80, 20, 20)
         # gain-values in array
-        self.dBValue = abs(randn(100) * 20 + 10)
+        self.dBValue = np.zeros(100)
         # gain-values in array
         self.timeValue = range(0, 100)
         # time-array from 0s to -30s (to plot data of the last 30s)
