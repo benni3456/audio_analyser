@@ -24,7 +24,6 @@ class FFTPlotter:
         self.plotflag = plotflag
         self.must_plot = True
 
-
     def nextpow2(self, n):
         ''' function to compute the next lower power of 2 of given input n '''
         m_f = np.log2(n)
@@ -74,10 +73,10 @@ class FFTPlotter:
                                     self.fs / 4, len(self.data)), self.data)
                 self.PlotSpek.axes.set_xlim(0, self.fs / 2)
 
-            self.PlotSpek.axes.set_ylim(-100, 50)
+            self.PlotSpek.axes.set_ylim(-100, 30)
             self.PlotSpek.axes.grid(True, which='both')
             self.must_plot = False
         else:
-            self.lines.set_ydata(self.data)
+            self.lines.set_ydata(self.data - 20)
 
         self.PlotSpek.draw()

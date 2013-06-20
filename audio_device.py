@@ -279,7 +279,7 @@ class AudioDevice(QtCore.QObject):
         chunks = 0
         available = self.stream.get_read_available()
         available = int(floor(available / FRAMES_PER_BUFFER))
-        for j in range(0, available):
+        for _ in range(0, available):
             try:
                 rawdata = self.stream.read(FRAMES_PER_BUFFER)
             except IOError as inst:

@@ -59,6 +59,5 @@ class Oszi:
 
         # plots self.NumberOfPeriods periods of the input vector
 
-
         self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
                                         zero_crossings[1]])

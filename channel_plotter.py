@@ -19,7 +19,7 @@ class ChannelPlotter:
         ''' function for Plotting each channel gain as a bar plot'''
 
         data = self.audiobuffer.newdata()
-        nchannel, length = data.shape
+        nchannel, _ = data.shape
 
         channel_dB = np.zeros((nchannel), float)
         #index = np.arange(nchannel)
