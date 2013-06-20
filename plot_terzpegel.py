@@ -58,7 +58,7 @@ class thirdPenStyles(QtGui.QWidget):
         text_space = (self.width() - self.side_space *
                       2) / (len(self.freq_value))
         start_point = 0.5 * text_space
-        while text_space < 30:
+        while text_space < 35:
             text_space = text_space * 2
             less_text = less_text * 2
 
