@@ -7,13 +7,13 @@ import sys
 from PyQt4.QtCore import QTimer, SIGNAL
 from PyQt4.QtGui import QMainWindow, QApplication, QErrorMessage
 from audio_buffer import AudioBuffer
-from sound_device import AudioDevice
+from audio_device import AudioDevice
 from log_class import Logger
 
 import Terzpegelmesser
 import waveform
 import gain_plotter
-import spektro_plotter
+import third_octave_plotter
 import channel_plotter
 import spectrogram_plotter
 import fft_plotter
@@ -34,22 +34,17 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(1000, 600)
         # Initialize the audio data ring buffer
         self.audiobuffer = AudioBuffer(self.logger)
-
         # Initialize the audio device
         self.audio_device = AudioDevice(self.logger)
-
         # Initialize the blocklength
         self.blocklength = 2048
         self.logger.push("initial set Blocksize to " + str(self.blocklength))
         # Initialize the frequency weighting flag
         self.weight = 0
-
         # Initialize the number of samples shown in waveform monitor
         self.window = 128
-
         # Initialize the number of periods shown in waveform monitor
         self.NumberOfPeriods = 10
-
         # Initialize the flag for lin (0) and log (1) fft plotting
         self.plotflag = 1
         devices = self.audio_device.get_readable_devices_list()
@@ -70,55 +65,47 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.BoxFFT, SIGNAL('currentIndexChanged(int)'),
                       self.update_blocklength)
 
-
-
-
-
-        self.ui.action32.triggered.connect(lambda:self.update_blocklength(0))
+        self.ui.action32.triggered.connect(lambda: self.update_blocklength(0))
         self.ui.action32.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(0))
-        self.ui.action64.triggered.connect(lambda:self.update_blocklength(1))
+            lambda: self.ui.BoxFFT.setCurrentIndex(0))
+        self.ui.action64.triggered.connect(lambda: self.update_blocklength(1))
         self.ui.action64.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(1))
-        self.ui.action128.triggered.connect(lambda:self.update_blocklength(2))
+            lambda: self.ui.BoxFFT.setCurrentIndex(1))
+        self.ui.action128.triggered.connect(lambda: self.update_blocklength(2))
         self.ui.action128.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(2))
-        self.ui.action256.triggered.connect(lambda:self.update_blocklength(3))
+            lambda: self.ui.BoxFFT.setCurrentIndex(2))
+        self.ui.action256.triggered.connect(lambda: self.update_blocklength(3))
         self.ui.action256.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(3))
-        self.ui.action512.triggered.connect(lambda:self.update_blocklength(4))
+            lambda: self.ui.BoxFFT.setCurrentIndex(3))
+        self.ui.action512.triggered.connect(lambda: self.update_blocklength(4))
         self.ui.action512.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(4))
-        self.ui.action1024.triggered.connect(lambda:self.update_blocklength(
+            lambda: self.ui.BoxFFT.setCurrentIndex(4))
+        self.ui.action1024.triggered.connect(lambda: self.update_blocklength(
             5))
         self.ui.action1024.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(5))
-        self.ui.action2048.triggered.connect(lambda:self.update_blocklength(
+            lambda: self.ui.BoxFFT.setCurrentIndex(5))
+        self.ui.action2048.triggered.connect(lambda: self.update_blocklength(
             6))
         self.ui.action2048.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(6))
-        self.ui.action4096.triggered.connect(lambda:self.update_blocklength(
+            lambda: self.ui.BoxFFT.setCurrentIndex(6))
+        self.ui.action4096.triggered.connect(lambda: self.update_blocklength(
             7))
         self.ui.action4096.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(7))
-        self.ui.action8192.triggered.connect(lambda:self.update_blocklength(
+            lambda: self.ui.BoxFFT.setCurrentIndex(7))
+        self.ui.action8192.triggered.connect(lambda: self.update_blocklength(
             8))
         self.ui.action8192.triggered.connect(
-            lambda:self.ui.BoxFFT.setCurrentIndex(8))
+            lambda: self.ui.BoxFFT.setCurrentIndex(8))
 
-
-        self.ui.actionNone.triggered.connect(lambda:self.update_weight(0))
+        self.ui.actionNone.triggered.connect(lambda: self.update_weight(0))
         self.ui.actionNone.triggered.connect(
-            lambda:self.ui.BoxBew.setCurrentIndex(0))
-        self.ui.actionA.triggered.connect(lambda:self.update_weight(1))
+            lambda: self.ui.BoxBew.setCurrentIndex(0))
+        self.ui.actionA.triggered.connect(lambda: self.update_weight(1))
         self.ui.actionA.triggered.connect(
-            lambda:self.ui.BoxBew.setCurrentIndex(1))
-        self.ui.actionC.triggered.connect(lambda:self.update_weight(2))
+            lambda: self.ui.BoxBew.setCurrentIndex(1))
+        self.ui.actionC.triggered.connect(lambda: self.update_weight(2))
         self.ui.actionC.triggered.connect(
-            lambda:self.ui.BoxBew.setCurrentIndex(2))
-
-
-
+            lambda: self.ui.BoxBew.setCurrentIndex(2))
 
         self.connect(self.ui.BoxBew, SIGNAL('currentIndexChanged(int)'),
                       self.update_weight)
@@ -129,11 +116,10 @@ class MainWindow(QMainWindow):
 
         self.ui.actionLogarithmic.triggered.connect(self.update_plotflag_log)
         self.ui.actionLogarithmic.triggered.connect(
-            lambda:self.ui.RadioLog.setChecked(True))
+            lambda: self.ui.RadioLog.setChecked(True))
         self.ui.actionLinear.triggered.connect(self.update_plotflag_lin)
         self.ui.actionLinear.triggered.connect(
-            lambda:self.ui.RadioLin.setChecked(True))
-
+            lambda: self.ui.RadioLin.setChecked(True))
 
         self.connect(self.ui.push_plus, SIGNAL("clicked()"),
                       self.update_NumberOfPeriods_minus)
@@ -149,7 +135,7 @@ class MainWindow(QMainWindow):
                         gain_plotter.Gain_Plotter(self.ui.PlotGainVerlauf,
                                                        self.audiobuffer))
         self.spektro_plotter = (
-                        spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel,
+                third_octave_plotter.SpektroPlotter(self.ui.PlotTerzpegel,
                                                             self.audiobuffer))
         self.waveform = waveform.Oszi(self.ui.PlotWellenform,
                                       self.audiobuffer, self.NumberOfPeriods)
@@ -160,7 +146,7 @@ class MainWindow(QMainWindow):
                 spectrogram_plotter.Spectrogram_Plot(self.ui.PlotSpektrogramm,
                                                             self.audiobuffer))
         self.spektro_plotter_2 = (
-                        spektro_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,
+                third_octave_plotter.SpektroPlotter(self.ui.PlotTerzpegel_2,
                                                             self.audiobuffer))
         self.fft_plot = fft_plotter.FFTPlotter(self.ui.PlotFFT,
                                                self.audiobuffer,
@@ -179,8 +165,8 @@ class MainWindow(QMainWindow):
         self.spektro_plotter.plot(self.weight)
         self.spektro_plotter_2.plot(self.weight)
         self.waveform.plot(self.NumberOfPeriods)
-        #if isVis_Spektrogram==True:
-        self.specgramplot.plotspecgram()
+        if isvis_FFT == False:
+            self.specgramplot.plotspecgram()
 
         if isvis_FFT == True:
             self.fft_plot.plot(self.blocklength, self.plotflag)

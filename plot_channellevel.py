@@ -25,7 +25,7 @@ class Channel_Bar(QtGui.QWidget):
         self.y_ticks = range(-80, 20, 20)
         self.side_space = 50
         self.freq_value = [0]
-        self.db_value = [0]*0
+        self.db_value = [0] * 0
     # read input data arrays
 
     def readArray(self, db_value, freq_value):
@@ -41,7 +41,8 @@ class Channel_Bar(QtGui.QWidget):
                                        + 20, 20, 20), QtCore.Qt.AlignCenter,
                                         'dB')
         lesstext = 1
-        textspace = (self.width() - self.side_space * 2) / (len(self.freq_value))
+        textspace = (self.width() - self.side_space *
+                     2) / (len(self.freq_value))
         startpoint = 0.5 * textspace
         while textspace < 25:
             textspace = textspace * 2
@@ -74,7 +75,7 @@ class Channel_Bar(QtGui.QWidget):
 
         startpoint = 0
         #Schleife für x-Achse
-        for a in range(0, len(self.db_value), 1):
+        for _ in range(0, len(self.db_value), 1):
             painter.drawLine(QtCore.QLineF(startpoint + (balkenbreite / 2), 0,
                                            startpoint + (balkenbreite / 2), 3))
                                             #x achse einheiten striche
@@ -89,7 +90,7 @@ class Channel_Bar(QtGui.QWidget):
 
         y_axis = 0
         anzahl_striche = 5
-        for b in range(0, anzahl_striche):
+        for _ in range(0, anzahl_striche):
             painter.drawLine(QtCore.QLineF(-5, y_axis, 0, y_axis))
                 #y achse einheiten striche
             y_axis = y_axis + self.y_anzahl / (anzahl_striche - 1)

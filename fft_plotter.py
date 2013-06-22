@@ -3,9 +3,10 @@
 
 from calc import dB
 import numpy as np
-from sound_device import SAMPLING_RATE as fs
+from audio_device import SAMPLING_RATE as fs
 from PyQt4 import QtGui
 import scipy
+import time
 
 
 class FFTPlotter:
@@ -23,7 +24,6 @@ class FFTPlotter:
         self.recursive_weight = 0.1
         self.plotflag = plotflag
         self.must_plot = True
-
 
     def nextpow2(self, n):
         ''' function to compute the next lower power of 2 of given input n '''
@@ -47,8 +47,8 @@ class FFTPlotter:
 
         data = data[0][:self.blocklength]
 
-        self.data_new = dB(abs(scipy.fft(data)))
-        self.data_new = self.data_new[:self.blocklength / 2]
+        self.data_new = (abs(scipy.fft(data)))
+        self.data_new = dB(self.data_new[:self.blocklength / 2])
 
         if self.blocklength != self.blocklength_old:
             self.data = np.zeros(self.blocklength / 2)
@@ -74,10 +74,10 @@ class FFTPlotter:
                                     self.fs / 4, len(self.data)), self.data)
                 self.PlotSpek.axes.set_xlim(0, self.fs / 2)
 
-            self.PlotSpek.axes.set_ylim(-100, 50)
+            self.PlotSpek.axes.set_ylim(-100, 30)
             self.PlotSpek.axes.grid(True, which='both')
             self.must_plot = False
         else:
-            self.lines.set_ydata(self.data)
+            self.lines.set_ydata(self.data - 20)
 
         self.PlotSpek.draw()

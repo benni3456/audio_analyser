@@ -7,7 +7,7 @@ Created on 13.05.2013
 import numpy as np
 from pylab import specgram
 from numpy import sum
-from sound_device import SAMPLING_RATE as fs
+from audio_device import SAMPLING_RATE as fs
 from PyQt4 import QtGui
 
 SMOOTH_DISPLAY_TIMER_PERIOD_MS = 25

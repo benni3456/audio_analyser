@@ -6,7 +6,7 @@ Created on Mon Apr 29 15:31:26 2013
 """
 
 
-from numpy import diff, sign, where
+from numpy import diff, sign, where, zeros
 
 
 class Oszi:
@@ -30,24 +30,24 @@ class Oszi:
         zero_crossings = where(diff(sign(data)))
         self.NumberOfPeriods = NumberOfPeriods
 
+        if len(zero_crossings[0]) <= 1:
+            return [0,0]
+
         # always returns the ascending slope of the period starting with
         # the third period
         if data[zero_crossings[0][0]] > data[zero_crossings[0][1]]:
             # in case of odd slope
             if len(zero_crossings[0]) < (1 + self.NumberOfPeriods * 2):
-                return [zero_crossings[0][1], zero_crossings[0][-1]]
-            else:
+                return [0,0]
+            elif len(zero_crossings[0]) >= (1 + self.NumberOfPeriods * 2):
                 return [zero_crossings[0][1], zero_crossings[0][1 +
                                                 self.NumberOfPeriods * 2]]
         else:
             # in case of even slope
             if len(zero_crossings[0]) < (self.NumberOfPeriods * 2):
-                return [zero_crossings[0][1], zero_crossings[0][-1]]
-            elif len(zero_crossings[0]) < 2:
-                return [zero_crossings[0][0], zero_crossings[0][0]]
+                return [0,0]
             else:
-                return [zero_crossings[0][0], zero_crossings[0][
-                                            self.NumberOfPeriods * 2]]
+                return [zero_crossings[0][1], zero_crossings[0][self.NumberOfPeriods * 2]]
 
     def plot(self, NumberOfPeriods):
         ''' function to plot the waveform '''
@@ -57,8 +57,9 @@ class Oszi:
         # self.NumberOfPeriods periods of the input vector
         zero_crossings = self.findperiod(data, self.NumberOfPeriods)
 
-        # plots self.NumberOfPeriods periods of the input vector
-
-
-        self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
+        if zero_crossings == [0,0]:
+            # in case of no periodicity or heavy overload
+            self.PlotOszi.readArray(data[0])
+        else:
+            self.PlotOszi.readArray(data[0][zero_crossings[0]:self.resample *
                                         zero_crossings[1]])

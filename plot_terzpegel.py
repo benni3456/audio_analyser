@@ -11,7 +11,7 @@ Created on Mon Apr 29 15:00:40 2013
 
 # penstyles.py
 from __future__ import division
-import sys
+#import sys
 from PyQt4 import QtGui, QtCore
 #from pylab import
 
@@ -27,21 +27,24 @@ class thirdPenStyles(QtGui.QWidget):
         self.y_anzahl = 80
         self.y_ticks = range(-80, 20, 20)
         self.side_space = 50
-        self.freq_value = [0]
-        self.db_value = [0]*0
+        self.freq_value = [31.5, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315,
+                           400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500,
+                           3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000]
+        self.db_value = self.freq_value * 0
 
-    def readArray(self, db_value, freq_value):
+    def readArray(self, db_value, freq_value=[]):
         '''reads data to draw from input device
         '''
-        assert (len(db_value) == len(freq_value))
+        assert (len(db_value) == len(self.freq_value))
         self.db_value = db_value
-        self.freq_value = freq_value
+        if freq_value != []:
+            self.freq_value = freq_value
 
     def frequency_formatter(self, f):
         if f < 1000:
             return(str(int(f)))
         else:
-            return("%2.1fk"%(f/1000))
+            return("%2.1fk" % (f / 1000))
 
     def draw_text(self, painter):
         '''draws the text of the axis
@@ -52,17 +55,18 @@ class thirdPenStyles(QtGui.QWidget):
         painter.drawText(QtCore.QRectF(-30, -self.height() + self.side_space +
                                     20, 20, 20), QtCore.Qt.AlignCenter, 'dB')
         less_text = 1
-        text_space = (self.width() - self.side_space * 2) / (len(self.freq_value))
+        text_space = (self.width() - self.side_space *
+                      2) / (len(self.freq_value))
         start_point = 0.5 * text_space
-        while text_space < 30:
+        while text_space < 35:
             text_space = text_space * 2
             less_text = less_text * 2
 
         for i in range(0, len(self.freq_value), less_text):
             painter.drawText(QtCore.QRectF(start_point - text_space / 2, 0,
-                                         text_space, 20), QtCore.Qt.AlignCenter,
-                                         self.frequency_formatter(self.freq_value[i]))
-                                            #x-Achse Beschriftung
+                                text_space, 20), QtCore.Qt.AlignCenter,
+                                self.frequency_formatter(self.freq_value[i]))
+                                #x-Achse Beschriftung
             start_point = start_point + text_space
         count_ticks = 5
         y_axis = -10
@@ -73,6 +77,7 @@ class thirdPenStyles(QtGui.QWidget):
             y_axis = y_axis - ((self.height() - self.side_space * 2) /
                                                     (count_ticks - 1))
 #    print unichr(131)
+
     def draw_ticks(self, rectspace, painter):
         '''
         draws the ticks of the axis
@@ -84,7 +89,7 @@ class thirdPenStyles(QtGui.QWidget):
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         start_point = 0
         #Schleife für x-Achse
-        for a in range(0, len(self.db_value), 1):
+        for _ in range(0, len(self.db_value), 1):
             painter.drawLine(QtCore.QLineF(start_point + (rectspace / 2), 0,
                                            start_point + (rectspace / 2), 3))
             #x achse einheiten striche
@@ -97,7 +102,7 @@ class thirdPenStyles(QtGui.QWidget):
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         y_axis = 0
         anzahl_striche = 5
-        for b in range(0, anzahl_striche):
+        for _ in range(0, anzahl_striche):
             painter.drawLine(QtCore.QLineF(-5, y_axis, 0, y_axis))
             #y achse einheiten striche
             y_axis = y_axis + self.y_anzahl / (anzahl_striche - 1)
@@ -153,11 +158,3 @@ class thirdPenStyles(QtGui.QWidget):
         self.draw_data(rectspace, painter)
         painter.end()
         self.update()
-
-
-if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
-    dt = thirdPenStyles()
-    dt.readArray(dBValue, freqValue)
-    dt.show()
-    app.exec_()

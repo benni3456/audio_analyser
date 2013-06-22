@@ -1,8 +1,8 @@
 from pylab import float64, array
 from calc import rms, dB
 from scipy.signal import butter, lfilter
-from sound_device import SAMPLING_RATE as fs
-from plot_terzpegel import thirdPenStyles
+#from audio_device import SAMPLING_RATE as fs
+#from plot_terzpegel import thirdPenStyles
 
 
 class SpektroPlotter:
@@ -36,10 +36,10 @@ class SpektroPlotter:
 
         self.frequenzbewertung_c = [-3.0, -2.0, -1.3, -0.8, -0.5, -0.3, -0.2,
                                     -0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                    0.0, 0.0, -0.1, -0.2,-0.3,-0.5,-0.8,-1.3,
-                                    -2.0,-3.0,-4.4, -6.2,-8.5]
+                                    0.0, 0.0, -0.1, -0.2, -0.3, -0.5, -0.8,
+                                    -1.3, -2.0, -3.0, -4.4, -6.2, -8.5]
 
-    def butterbandpass(self, fo, fu, fs, order = 2):
+    def butterbandpass(self, fo, fu, fs, order=2):
         ''' function that computes a,b coefficients
         of SOS butterworth bandpass
         '''
@@ -70,5 +70,4 @@ class SpektroPlotter:
                                      self.frequenzbewertung[freq])
             self.thirdpow.append(freqpow)
 
-        self.PlotSpektro.readArray(self.thirdpow, self.fc)
-
+        self.PlotSpektro.readArray(self.thirdpow)

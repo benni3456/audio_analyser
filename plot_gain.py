@@ -9,7 +9,8 @@ Created on Mon Apr 29 15:00:40 2013
 # gain_plot.py
 from __future__ import division
 from PyQt4 import QtGui, QtCore
-from pylab import randn, arange
+from pylab import arange
+import numpy as np
 
 
 class GainPlotter(QtGui.QWidget):
@@ -28,7 +29,7 @@ class GainPlotter(QtGui.QWidget):
         self.y_range = Ymax_min
         self.y_ticks = range(-80, 20, 20)
         # gain-values in array
-        self.dBValue = abs(randn(100) * 20 + 10)
+        self.dBValue = np.zeros(100)
         # gain-values in array
         self.timeValue = range(0, 100)
         # time-array from 0s to -30s (to plot data of the last 30s)
@@ -36,9 +37,9 @@ class GainPlotter(QtGui.QWidget):
         # calculate temporal distance between two sequent values
         self.temporaldist = 1 / (len(self.dBValue) / 30)
 
-    def read_array(self, dBValue, timeValue = arange(0, 100, 1)):
+    def read_array(self, dBValue, timeValue=arange(0, 100, 1)):
         """ Function to read input data arrays """
-        #assert (len(dBValue) == len(timeValue))
+        #assert (len(dBValue) == len(time_value))
         self.dBValue = dBValue
         self.timeValue = timeValue
 
@@ -75,13 +76,13 @@ class GainPlotter(QtGui.QWidget):
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         # draw ticks for time-axis
         startpoint = 1
-        for a in range(0, len(self.timestep), 1):
+        for _ in range(0, len(self.timestep), 1):
             painter.drawLine(QtCore.QLineF(startpoint, 0., startpoint, - 1))
             startpoint += 1.
         # draw ticks for gain-axis
         y_axis = 0
         y_axis_lines = 5
-        for b in range(0, y_axis_lines):
+        for _ in range(0, y_axis_lines):
             painter.drawLine(QtCore.QLineF(-0.08, y_axis, 0, y_axis))
             y_axis = y_axis + self.y_range / (y_axis_lines - 1)
         painter.restore()
@@ -93,7 +94,7 @@ class GainPlotter(QtGui.QWidget):
         painter.scale(((self.width() - 200) / (len(self.timeValue) /
                                            (self.temporaldist))
                                            * (1 / self.temporaldist)),
-                                           -((self.height()-200)
+                                           -((self.height() - 200)
                                              / self.y_range))
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtCore.Qt.black), 0))
         brush = QtGui.QBrush(QtCore.Qt.blue)
@@ -101,8 +102,8 @@ class GainPlotter(QtGui.QWidget):
         # start at time 0 (on the right), draw to the left
         startpoint = 0
         for a in range(0, len(self.dBValue) - 1, 1):
-            db = self.dBValue[a] +80
-            db2 = self.dBValue[a + 1]+80
+            db = self.dBValue[a] + 80
+            db2 = self.dBValue[a + 1] + 80
             painter.drawLine(QtCore.QLineF(startpoint, db, startpoint + 1,
                                             db2))
             startpoint = startpoint + 1
