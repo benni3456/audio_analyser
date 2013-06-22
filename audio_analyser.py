@@ -38,6 +38,7 @@ class MainWindow(QMainWindow):
         self.audio_device = AudioDevice(self.logger)
         # Initialize the blocklength
         self.blocklength = 2048
+        self.ui.BoxFFT.setCurrentIndex(6)
         self.logger.push("initial set Blocksize to " + str(self.blocklength))
         # Initialize the frequency weighting flag
         self.weight = 0
