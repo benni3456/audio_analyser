@@ -6,6 +6,7 @@ import numpy as np
 from audio_device import SAMPLING_RATE as fs
 from PyQt4 import QtGui
 import scipy
+import time
 
 
 class FFTPlotter:
@@ -46,8 +47,8 @@ class FFTPlotter:
 
         data = data[0][:self.blocklength]
 
-        self.data_new = dB(abs(scipy.fft(data)))
-        self.data_new = self.data_new[:self.blocklength / 2]
+        self.data_new = (abs(scipy.fft(data)))
+        self.data_new = dB(self.data_new[:self.blocklength / 2])
 
         if self.blocklength != self.blocklength_old:
             self.data = np.zeros(self.blocklength / 2)
