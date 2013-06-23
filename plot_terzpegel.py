@@ -50,10 +50,11 @@ class thirdPenStyles(QtGui.QWidget):
         '''draws the text of the axis
         '''
         painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2, 0,
-                                       20, 20), QtCore.Qt.AlignCenter,
-                         u"ƒm")
+                                       40, 20), QtCore.Qt.AlignCenter,
+                         u"ƒm [Hz]")
         painter.drawText(QtCore.QRectF(-30, -self.height() + self.side_space +
-                                    20, 20, 20), QtCore.Qt.AlignCenter, 'dB')
+                                    20, 50, 20), QtCore.Qt.AlignCenter,
+                         'level [dB]')
         less_text = 1
         text_space = (self.width() - self.side_space *
                       2) / (len(self.freq_value))

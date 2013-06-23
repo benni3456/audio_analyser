@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Terzpegelmesser_Version1_6.ui'
 #
-# Created: Fri Jun 21 20:14:32 2013
+# Created: Sun Jun 23 14:05:51 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -196,6 +196,8 @@ class Ui_MainWindow(object):
         self.ButtonStartStop.setObjectName(_fromUtf8("ButtonStartStop"))
         self.horizontalLayout_4.addWidget(self.ButtonStartStop)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
+        self.verticalLayout.setStretch(0, 1)
+        self.verticalLayout.setStretch(1, 2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 821, 21))
@@ -275,7 +277,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuWavemeter.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -286,7 +288,7 @@ class Ui_MainWindow(object):
         self.BoxBew.setItemText(2, QtGui.QApplication.translate("MainWindow", "C", None, QtGui.QApplication.UnicodeUTF8))
         self.push_plus.setText(QtGui.QApplication.translate("MainWindow", "Zoom In", None, QtGui.QApplication.UnicodeUTF8))
         self.push_minus.setText(QtGui.QApplication.translate("MainWindow", "Zoom Out", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Spektrogramm", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Spectrogram", None, QtGui.QApplication.UnicodeUTF8))
         self.labelFFT.setText(QtGui.QApplication.translate("MainWindow", "FFT Length", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(0, QtGui.QApplication.translate("MainWindow", "32", None, QtGui.QApplication.UnicodeUTF8))
         self.BoxFFT.setItemText(1, QtGui.QApplication.translate("MainWindow", "64", None, QtGui.QApplication.UnicodeUTF8))
@@ -301,8 +303,8 @@ class Ui_MainWindow(object):
         self.RadioLog.setText(QtGui.QApplication.translate("MainWindow", "logarithmic", None, QtGui.QApplication.UnicodeUTF8))
         self.RadioLin.setText(QtGui.QApplication.translate("MainWindow", "linear", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "FFT", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Gain-Verlauf", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.T), QtGui.QApplication.translate("MainWindow", "Terzpegel", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Level history", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.T), QtGui.QApplication.translate("MainWindow", "Thirds", None, QtGui.QApplication.UnicodeUTF8))
         self.ButtonStartStop.setText(QtGui.QApplication.translate("MainWindow", "START/STOP", None, QtGui.QApplication.UnicodeUTF8))
         self.menuDatei.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuThirds.setTitle(QtGui.QApplication.translate("MainWindow", "Thirds", None, QtGui.QApplication.UnicodeUTF8))

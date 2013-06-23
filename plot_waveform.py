@@ -46,8 +46,8 @@ class PlotWaveform(QtGui.QWidget):
                         / 2 - 20, 40, 20),
                          QtCore.Qt.AlignCenter, 'signal')
         painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2,
-                       (self.height() - 2 * self.side_space) / 2, 40, 20),
-                         QtCore.Qt.AlignCenter, 'ms')
+                       (self.height() - 2 * self.side_space) / 2, 50, 20),
+                         QtCore.Qt.AlignCenter, 't [ms]')
         start_point = 0
         x_step_size = ((self.width() - self.side_space * 2) /
                      (len(self.time_value)))

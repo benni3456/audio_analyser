@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,0,0">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,1,2">
       <property name="spacing">
@@ -244,11 +244,11 @@
       <item alignment="Qt::AlignVCenter">
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_3">
          <attribute name="title">
-          <string>Spektrogramm</string>
+          <string>Spectrogram</string>
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
@@ -380,7 +380,7 @@
         </widget>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
-          <string>Gain-Verlauf</string>
+          <string>Level history</string>
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
@@ -394,7 +394,7 @@
         </widget>
         <widget class="QWidget" name="T">
          <attribute name="title">
-          <string>Terzpegel</string>
+          <string>Thirds</string>
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_12">
           <item>

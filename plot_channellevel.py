@@ -38,8 +38,8 @@ class Channel_Bar(QtGui.QWidget):
         painter.drawText(QtCore.QRectF(self.width() - self.side_space * 2, 0,
                                 40, 20), QtCore.Qt.AlignCenter, 'channel')
         painter.drawText(QtCore.QRectF(-30, -self.height() + self.side_space
-                                       + 20, 20, 20), QtCore.Qt.AlignCenter,
-                                        'dB')
+                                       + 20, 50, 20), QtCore.Qt.AlignCenter,
+                                        'level [dB]')
         lesstext = 1
         textspace = (self.width() - self.side_space *
                      2) / (len(self.freq_value))
