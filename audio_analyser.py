@@ -1,3 +1,4 @@
+
 '''
 Created on 13.05.2013
 
@@ -201,9 +202,9 @@ class MainWindow(QMainWindow):
 
     def update_blocklength(self, newblocklength):
         self.blocklength = 32 * (2 ** newblocklength)
-        self.fft_plot.must_plot = True
         self.logger.push("Blocksize changed to " + str(self.blocklength))
         print(logger.log)
+        self.fft_plot.must_plot = True
 
     def update_NumberOfPeriods_plus(self):
         self.NumberOfPeriods += 1
@@ -251,6 +252,7 @@ class MainWindow(QMainWindow):
     def input_device_changed(self, index):
         success, index = self.audio_device.select_input_device(index)
         self.ui.DeviceList.setCurrentIndex(index)
+        self.fft_plot.must_plot = True
         if not success:
 # Note: the error message is a child of the settings dialog, so that
 # that dialog remains on top when the error message is closed

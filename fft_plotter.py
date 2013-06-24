@@ -52,6 +52,8 @@ class FFTPlotter:
 
         if self.blocklength != self.blocklength_old:
             self.data = np.zeros(self.blocklength / 2)
+            self.must_plot = True
+
 
         # recursive power spectral density estimation
         self.data = (self.recursive_weight * self.data_new
