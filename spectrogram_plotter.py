@@ -26,9 +26,9 @@ class Spectrogram_Plot():
         self.bufferlen = 400
         self.specdata = np.zeros((129, self.bufferlen))
         numBins, numSpectra = self.specdata.shape
-        self.x = np.arange(0, numSpectra)
+        self.x = np.arange(-numSpectra, 0)
         self.y = np.linspace(0, fs / 2, numBins)
-
+		
     def plotspecgram(self, nfft=256):
 
         data = self.audiobuffer.newdata()
